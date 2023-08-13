@@ -4,6 +4,7 @@ import com.mindfulengineering.expenses.domain.ExpenseClaim;
 import com.mindfulengineering.expenses.domain.ExpenseItem;
 import com.mindfulengineering.expenses.domain.Employees;
 import com.mindfulengineering.expenses.domain.Employee;
+import com.mindfulengineering.expenses.utilities.EmployeeUtilities;
 import java.time.ZonedDateTime;
 import java.time.ZoneId;
 
@@ -42,6 +43,15 @@ public class Main {
         Employee notFound = employees.findBySurname("James");
         System.out.println("Looking for 'James' => " + 
                 ((notFound == null) ? "No employee found" : notFound));
+        
+        // Testing EmployeeUtilities.employeeExists
+        System.out.println("Does Dalton exist? " + 
+                ( EmployeeUtilities.employeeExists(employees, mac) ? "Yes" : "No" ));
+        
+        String james = EmployeeUtilities
+                .employeeExists(employees, new Employee(666, "Mr.", "Chris", "James", "Staff", "Finance")) 
+                ? "Yes" : "No";
+        System.out.println("Does James exist? " + james);
         System.out.println("");
         System.out.println(employees);
         

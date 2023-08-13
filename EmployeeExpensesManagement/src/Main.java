@@ -19,8 +19,25 @@ public class Main {
         System.out.println(mac.getMailingName(false));
         
         Employee dalton = new Employee(2, "Manager");
+        dalton.setTitle("Dr.");
         dalton.setFirstName("Johnny");
         dalton.setSurname("Dalton");
+        
+        Employees employees = new Employees(15);
+        employees.addEmployee(mac);
+        employees.addEmployee(dalton);
+        employees.addEmployee( new Employee(3, "Mrs.", "Susan", "Brown", 
+                "Director", "Information Technology") );
+        
+        employees.viewEmployees();
+        
+        System.out.println("Looking for 'Dalton' => " + employees.findBySurname("dalton"));
+        
+        Employee notFound = employees.findBySurname("James");
+        System.out.println("Looking for 'James' => " + 
+                ((notFound == null) ? "No employee found" : notFound));
+        System.out.println("");
+        System.out.println(employees);
         
         Department itDept = new Department("IT", dalton);
         System.out.println(itDept.getName() + " managed by " 

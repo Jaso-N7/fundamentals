@@ -1,9 +1,11 @@
 package com.mindfulengineering.expenses;
 
+import com.mindfulengineering.expenses.domain.Department;
 import com.mindfulengineering.expenses.domain.ExpenseClaim;
 import com.mindfulengineering.expenses.domain.ExpenseItem;
 import com.mindfulengineering.expenses.domain.Employees;
 import com.mindfulengineering.expenses.domain.Employee;
+import com.mindfulengineering.expenses.domain.ExpenseType;
 import com.mindfulengineering.expenses.utilities.EmployeeUtilities;
 import java.time.ZonedDateTime;
 import java.time.ZoneId;
@@ -34,7 +36,7 @@ public class Main {
         employees.addEmployee(mac);
         employees.addEmployee(dalton);
         employees.addEmployee( new Employee(3, "Mrs.", "Susan", "Brown", 
-                "Director", "Information Technology") );
+                "Director", Department.INFOTECH) );
         
         employees.viewEmployees();
         
@@ -49,7 +51,8 @@ public class Main {
                 ( EmployeeUtilities.employeeExists(employees, mac) ? "Yes" : "No" ));
         
         String james = EmployeeUtilities
-                .employeeExists(employees, new Employee(666, "Mr.", "Chris", "James", "Staff", "Finance")) 
+                .employeeExists(employees, new Employee(666, "Mr.", "Chris", "James",
+                        "Staff", Department.FINANCE)) 
                 ? "Yes" : "No";
         System.out.println("Does James exist? " + james);
         System.out.println("");
@@ -75,7 +78,7 @@ public class Main {
         // Testing expense items
         System.out.println("\nTesting Expense Items ---");
         ExpenseItem expenseItem = ExpenseItem.create(8_000, claimPaid.getId(), 
-                "hotel", "Rio Grande Ocho Rios, 2 nights", 75_156.65);
+                ExpenseType.ACCOMODATION, "Rio Grande Ocho Rios, 2 nights", 75_156.65);
         System.out.println(expenseItem.getDescription());
         
         // Testing equality

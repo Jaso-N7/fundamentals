@@ -15,11 +15,11 @@ public class ExpenseItem {
     
     private final int id;
     private final int claimId;
-    private final String expenseType;
+    private final ExpenseType expenseType;
     private final String description;
     private final double amount;
 
-    private ExpenseItem(int id, int claimId, String expenseType, 
+    private ExpenseItem(int id, int claimId, ExpenseType expenseType, 
             String description, double amount) {
         this.id = id;
         this.claimId = claimId;
@@ -28,7 +28,7 @@ public class ExpenseItem {
         this.amount = amount;
     }
     
-    public static ExpenseItem create(int id, int claimId, String expenseType, 
+    public static ExpenseItem create(int id, int claimId, ExpenseType expenseType, 
             String description, double amount) {
         return new ExpenseItem(id, claimId, expenseType, description, amount);
     }
@@ -41,7 +41,7 @@ public class ExpenseItem {
         return claimId;
     }
 
-    public String getExpenseType() {
+    public ExpenseType getExpenseType() {
         return expenseType;
     }
 

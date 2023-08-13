@@ -15,7 +15,7 @@ public class Employee {
     private String firstName;
     private String surname;
     private String jobTitle;
-    private String department;
+    private Department department;
     private ExpenseClaim[] claims;
 
     public Employee() {
@@ -26,7 +26,8 @@ public class Employee {
         this.jobTitle = jobTitle;
     }
 
-    public Employee(int id, String title, String firstName, String surname, String jobTitle, String department) {
+    public Employee(int id, String title, String firstName, String surname, 
+            String jobTitle, Department department) {
         this.id = id;
         this.title = title;
         this.firstName = firstName;
@@ -80,11 +81,11 @@ public class Employee {
         this.jobTitle = jobTitle;
     }
 
-    public String getDepartment() {
+    public Department getDepartment() {
         return department;
     }
 
-    public void setDepartment(String department) {
+    public void setDepartment(Department department) {
         this.department = department;
     }
 

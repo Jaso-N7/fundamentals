@@ -10,15 +10,16 @@ import java.util.Objects;
  */
 public final class PlaneTicket extends TravelTicket {
     
-    private Integer travelClass, seatNumber, stopOvers;
+    private Integer seatNumber, stopOvers;
+    private TravelClass travelClass;
 
     public PlaneTicket() {
         super();
     }
 
-    public PlaneTicket(Integer travelClass, Integer seatNumber, Integer stopOvers, 
-            Long bookingRef, String origin, String destination, BigDecimal price,
-            LocalDateTime departureTime, LocalDateTime arrivalTime) {
+    public PlaneTicket(Long bookingRef, String origin, String destination, 
+            BigDecimal price, LocalDateTime departureTime, LocalDateTime arrivalTime,
+            TravelClass travelClass, Integer seatNumber, Integer stopOvers) {
         super(bookingRef, origin, destination, price, departureTime, arrivalTime);
         this.travelClass = travelClass;
         this.seatNumber = seatNumber;
@@ -27,11 +28,11 @@ public final class PlaneTicket extends TravelTicket {
 
     
     
-    public Integer getTravelClass() {
+    public TravelClass getTravelClass() {
         return travelClass;
     }
 
-    public void setTravelClass(Integer travelClass) {
+    public void setTravelClass(TravelClass travelClass) {
         this.travelClass = travelClass;
     }
 

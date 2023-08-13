@@ -55,6 +55,9 @@ public sealed abstract class TravelTicket
     }
 
     public BigDecimal getPrice() {
+        if (price == null)
+            return BigDecimal.ZERO;
+        
         return price;
     }
 

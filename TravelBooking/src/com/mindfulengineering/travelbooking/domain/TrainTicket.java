@@ -10,27 +10,27 @@ import java.util.Objects;
  */
 public final class TrainTicket extends TravelTicket {
     
-    private Integer travelClass, carriageNumber, seatNumber;
+    private Integer carriageNumber, seatNumber;
+    private TravelClass travelClass;
 
     public TrainTicket() {
         super();
     }
     
-    public TrainTicket(Integer travelClass, Integer carriageNumber, 
-            Integer seatNumber, Long bookingRef, String origin, 
-            String destination, BigDecimal price, LocalDateTime departureTime, 
-            LocalDateTime arrivalTime) {
+    public TrainTicket(Long bookingRef, String origin, String destination, 
+            BigDecimal price, LocalDateTime departureTime, LocalDateTime arrivalTime, 
+            TravelClass travelClass, Integer carriageNumber, Integer seatNumber) {
         super(bookingRef, origin, destination, price, departureTime, arrivalTime);
         this.travelClass = travelClass;
         this.carriageNumber = carriageNumber;
         this.seatNumber = seatNumber;
     }
 
-    public Integer getTravelClass() {
+    public TravelClass getTravelClass() {
         return travelClass;
     }
 
-    public void setTravelClass(Integer travelClass) {
+    public void setTravelClass(TravelClass travelClass) {
         this.travelClass = travelClass;
     }
 
@@ -55,11 +55,11 @@ public final class TrainTicket extends TravelTicket {
      */
     public void upgrade () {
     
-        if (travelClass != 1) {
-            travelClass = 1;
+        if (travelClass != TravelClass.FIRST) {
+            travelClass = TravelClass.FIRST;
             System.out.println("You have been upgraded.");
         } else {
-            System.out.println("You are already in 1st class");
+            System.out.println("You are already in " + travelClass + " class");
         }
         
     }

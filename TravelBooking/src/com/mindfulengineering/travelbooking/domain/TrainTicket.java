@@ -2,6 +2,7 @@ package com.mindfulengineering.travelbooking.domain;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 /**
  *
@@ -69,7 +70,35 @@ public final class TrainTicket extends TravelTicket {
                 + ", seated at " + seatNumber + '\n' 
                 + super.toString();
     }
-    
-    
-    
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 97 * hash + Objects.hashCode(this.travelClass);
+        hash = 97 * hash + Objects.hashCode(this.carriageNumber);
+        hash = 97 * hash + Objects.hashCode(this.seatNumber);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final TrainTicket other = (TrainTicket) obj;
+        if (!Objects.equals(this.travelClass, other.travelClass)) {
+            return false;
+        }
+        if (!Objects.equals(this.carriageNumber, other.carriageNumber)) {
+            return false;
+        }
+        return Objects.equals(this.seatNumber, other.seatNumber);
+    }
+       
 }

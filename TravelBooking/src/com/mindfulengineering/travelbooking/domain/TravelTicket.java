@@ -2,6 +2,7 @@ package com.mindfulengineering.travelbooking.domain;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 /**
  *
@@ -91,5 +92,48 @@ public sealed abstract class TravelTicket
                 + ", $" + price + ", departure " + departureTime 
                 + ", arrival " + arrivalTime;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 43 * hash + Objects.hashCode(this.bookingRef);
+        hash = 43 * hash + Objects.hashCode(this.origin);
+        hash = 43 * hash + Objects.hashCode(this.destination);
+        hash = 43 * hash + Objects.hashCode(this.price);
+        hash = 43 * hash + Objects.hashCode(this.departureTime);
+        hash = 43 * hash + Objects.hashCode(this.arrivalTime);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final TravelTicket other = (TravelTicket) obj;
+        if (!Objects.equals(this.origin, other.origin)) {
+            return false;
+        }
+        if (!Objects.equals(this.destination, other.destination)) {
+            return false;
+        }
+        if (!Objects.equals(this.bookingRef, other.bookingRef)) {
+            return false;
+        }
+        if (!Objects.equals(this.price, other.price)) {
+            return false;
+        }
+        if (!Objects.equals(this.departureTime, other.departureTime)) {
+            return false;
+        }
+        return Objects.equals(this.arrivalTime, other.arrivalTime);
+    }
+    
     
 }

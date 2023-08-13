@@ -4,10 +4,10 @@ import java.util.Objects;
 
 /**
  * An ExpenseItem is a Class of:
- * 
- * ExpenseItem ei = ExpenseItem.valueOf(int, int String, String, double)
- * 
- * INTERPRETATION: What the money is used for (hotel / food / travel)
+ 
+ ExpenseItem ei = ExpenseItem.create(int, int String, String, double)
+ 
+ INTERPRETATION: What the money is used for (hotel / food / travel)
  * 
  * @author jason
  */
@@ -15,9 +15,9 @@ public class ExpenseItem {
     
     private final int id;
     private final int claimId;
-    private String expenseType;
-    private String description;
-    private double amount;
+    private final String expenseType;
+    private final String description;
+    private final double amount;
 
     private ExpenseItem(int id, int claimId, String expenseType, 
             String description, double amount) {
@@ -28,7 +28,7 @@ public class ExpenseItem {
         this.amount = amount;
     }
     
-    public static ExpenseItem valueOf(int id, int claimId, String expenseType, 
+    public static ExpenseItem create(int id, int claimId, String expenseType, 
             String description, double amount) {
         return new ExpenseItem(id, claimId, expenseType, description, amount);
     }

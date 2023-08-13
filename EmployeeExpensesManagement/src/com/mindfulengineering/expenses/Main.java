@@ -74,7 +74,7 @@ public class Main {
         
         // Testing expense items
         System.out.println("\nTesting Expense Items ---");
-        ExpenseItem expenseItem = ExpenseItem.valueOf(8_000, claimPaid.getId(), 
+        ExpenseItem expenseItem = ExpenseItem.create(8_000, claimPaid.getId(), 
                 "hotel", "Rio Grande Ocho Rios, 2 nights", 75_156.65);
         System.out.println(expenseItem.getDescription());
         

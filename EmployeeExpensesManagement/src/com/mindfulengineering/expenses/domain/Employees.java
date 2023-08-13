@@ -8,7 +8,7 @@ package com.mindfulengineering.expenses.domain;
  */
 public class Employees {
 
-    private Employee[] employees;
+    private final Employee[] employees;
 
     /**
      * Constructs a class with an array of employees

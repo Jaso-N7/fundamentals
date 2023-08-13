@@ -2,6 +2,7 @@ package com.mindfulengineering.expenses.domain;
 
 
 import java.time.*;
+import java.util.Objects;
 
 /**
  * An ExpenseClaim is a Class of:
@@ -133,6 +134,47 @@ public class ExpenseClaim {
                         (approved ? "has been approved" : "has not been approved"), 
                         (paid ? "has been paid": "has not been paid"));
     }
-    
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 83 * hash + this.id;
+        hash = 83 * hash + this.employeeId;
+        hash = 83 * hash + Objects.hashCode(this.dateOfClaim);
+        hash = 83 * hash + (int) (Double.doubleToLongBits(this.totalAmount) ^ (Double.doubleToLongBits(this.totalAmount) >>> 32));
+        hash = 83 * hash + (this.approved ? 1 : 0);
+        hash = 83 * hash + (this.paid ? 1 : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ExpenseClaim other = (ExpenseClaim) obj;
+        if (this.id != other.id) {
+            return false;
+        }
+        if (this.employeeId != other.employeeId) {
+            return false;
+        }
+        if (Double.doubleToLongBits(this.totalAmount) != Double.doubleToLongBits(other.totalAmount)) {
+            return false;
+        }
+        if (this.approved != other.approved) {
+            return false;
+        }
+        if (this.paid != other.paid) {
+            return false;
+        }
+        return Objects.equals(this.dateOfClaim, other.dateOfClaim);
+    }
     
 }

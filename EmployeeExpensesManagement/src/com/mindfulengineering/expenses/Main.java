@@ -56,6 +56,7 @@ public class Main {
         System.out.println(employees);
         
         // Testing expense claims
+        System.out.println("\nTesting Expense Claims ---");
         ExpenseClaim expenseClaim = 
                 new ExpenseClaim.Builder(1_001, mac.getId(),
                         ZonedDateTime.now(ZoneId.of("Jamaica")), 5_153.58)
@@ -72,9 +73,16 @@ public class Main {
         System.out.println(claimPaid);
         
         // Testing expense items
+        System.out.println("\nTesting Expense Items ---");
         ExpenseItem expenseItem = ExpenseItem.valueOf(8_000, claimPaid.getId(), 
                 "hotel", "Rio Grande Ocho Rios, 2 nights", 75_156.65);
         System.out.println(expenseItem.getDescription());
+        
+        // Testing equality
+        System.out.println("\nTesting Equality ---");
+        System.out.println(mac.equals(dalton));
+        System.out.println(mac == mac);
+        System.out.println(mac.getClass());
         
     }
 }

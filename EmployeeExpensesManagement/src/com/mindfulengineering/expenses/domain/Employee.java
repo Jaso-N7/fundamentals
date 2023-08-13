@@ -1,5 +1,8 @@
 package com.mindfulengineering.expenses.domain;
 
+import java.util.Arrays;
+import java.util.Objects;
+
 /**
  * Who is the person that needs to claim money
  *
@@ -124,7 +127,59 @@ public class Employee {
         if (department != null) {
             sb.append("works in the ").append(department).append(" department");
         }
+        
+        if (claims != null) {
+        sb.append("With claims ").append(Arrays.toString(claims));
+        }
+        
         return sb.toString();
     }
 
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 59 * hash + this.id;
+        hash = 59 * hash + Objects.hashCode(this.title);
+        hash = 59 * hash + Objects.hashCode(this.firstName);
+        hash = 59 * hash + Objects.hashCode(this.surname);
+        hash = 59 * hash + Objects.hashCode(this.jobTitle);
+        hash = 59 * hash + Objects.hashCode(this.department);
+        hash = 59 * hash + Arrays.deepHashCode(this.claims);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Employee other = (Employee) obj;
+        if (this.id != other.id) {
+            return false;
+        }
+        if (!Objects.equals(this.title, other.title)) {
+            return false;
+        }
+        if (!Objects.equals(this.firstName, other.firstName)) {
+            return false;
+        }
+        if (!Objects.equals(this.surname, other.surname)) {
+            return false;
+        }
+        if (!Objects.equals(this.jobTitle, other.jobTitle)) {
+            return false;
+        }
+        if (!Objects.equals(this.department, other.department)) {
+            return false;
+        }
+        return Arrays.deepEquals(this.claims, other.claims);
+    }
+    
+    
 }

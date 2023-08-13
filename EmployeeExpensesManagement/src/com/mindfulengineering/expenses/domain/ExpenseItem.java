@@ -1,3 +1,5 @@
+package com.mindfulengineering.expenses.domain;
+
 /**
  * An ExpenseItem is a Class of:
  * 

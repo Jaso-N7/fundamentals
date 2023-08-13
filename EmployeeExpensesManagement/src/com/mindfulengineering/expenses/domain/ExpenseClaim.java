@@ -1,3 +1,5 @@
+package com.mindfulengineering.expenses.domain;
+
 
 import java.time.*;
 

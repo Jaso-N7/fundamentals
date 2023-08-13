@@ -1,5 +1,4 @@
-
-import java.util.Objects;
+package com.mindfulengineering.expenses.domain;
 
 /**
  * Who is the person that needs to claim money
@@ -14,6 +13,7 @@ public class Employee {
     private String surname;
     private String jobTitle;
     private String department;
+    private ExpenseClaim[] claims;
 
     public Employee() {
     }

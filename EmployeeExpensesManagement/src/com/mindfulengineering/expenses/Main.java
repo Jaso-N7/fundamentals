@@ -1,3 +1,9 @@
+package com.mindfulengineering.expenses;
+
+import com.mindfulengineering.expenses.domain.ExpenseClaim;
+import com.mindfulengineering.expenses.domain.ExpenseItem;
+import com.mindfulengineering.expenses.domain.Employees;
+import com.mindfulengineering.expenses.domain.Employee;
 import java.time.ZonedDateTime;
 import java.time.ZoneId;
 
@@ -38,14 +44,6 @@ public class Main {
                 ((notFound == null) ? "No employee found" : notFound));
         System.out.println("");
         System.out.println(employees);
-        
-        Department itDept = new Department("IT", dalton);
-        System.out.println(itDept.getName() + " managed by " 
-                + itDept.getManagerName().getSurname());
-        
-        DepartmentAlt hr = new DepartmentAlt("Hardly Relevant", dalton);
-        System.out.println(hr.name() + " managed by " 
-                + hr.managerName().getSurname());
         
         // Testing expense claims
         ExpenseClaim expenseClaim = 

@@ -1,3 +1,5 @@
+package com.mindfulengineering.expenses.domain;
+
 
 /**
  * A wrapper class for holding an array of Employee(s)

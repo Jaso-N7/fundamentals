@@ -64,7 +64,7 @@ public final class PlaneTicket extends TravelTicket {
     
     @Override
     public String toString() {
-        return "Plane Ticket Class=" + travelClass + ", seat # " + seatNumber + 
+        return "Plane Ticket " + travelClass + " Class, seat # " + seatNumber + 
                 ", with " + stopOvers + " stopovers\n" +
                 super.toString();
     }

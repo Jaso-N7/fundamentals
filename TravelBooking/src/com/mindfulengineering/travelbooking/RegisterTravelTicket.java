@@ -20,6 +20,7 @@ public class RegisterTravelTicket {
         System.out.print("Booking for 1 - bus, 2 - train, 3 - plane? ");
         int answer = sc.nextInt();
         
+        // optionally while ( !(answer >= 1 && answer <=3) )
         if (answer >= 1 && answer <= 3) {
             var ticket = bookTicket(answer);
             System.out.println(ticket);

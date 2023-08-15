@@ -1,6 +1,7 @@
 package com.mindfulengineering.travelbooking;
 
 import com.mindfulengineering.travelbooking.domain.*;
+import com.mindfulengineering.travelbooking.exceptions.InvalidTravelDurationException;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -15,7 +16,8 @@ public class RegisterTravelTicket {
 
     private final static Scanner sc = new Scanner(System.in);
 
-    public static void main(String[] args) {
+    public static void main(String[] args) 
+            throws InvalidTravelDurationException {
 
         System.out.print("Booking for 1 - bus, 2 - train, 3 - plane? ");
         int answer = sc.nextInt();
@@ -30,7 +32,8 @@ public class RegisterTravelTicket {
 
     }
 
-    private static TravelTicket bookTicket(int choice) {
+    private static TravelTicket bookTicket(int choice) 
+            throws InvalidTravelDurationException {
 
         System.out.println("Booking Ref");
         long br = sc.nextLong();

@@ -1,6 +1,8 @@
 package com.mindfulengineering.travelbooking.domain;
 
+import com.mindfulengineering.travelbooking.exceptions.InvalidTravelDurationException;
 import java.math.BigDecimal;
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -21,7 +23,28 @@ public sealed abstract class TravelTicket
     public TravelTicket() {
     }
 
-    public TravelTicket(Long bookingRef, String origin, String destination, BigDecimal price, LocalDateTime departureTime, LocalDateTime arrivalTime) {
+    /**
+     * Constructs a TravelTicket instance, which ensures the departure is prior
+     * to the arrival
+     * 
+     * @param bookingRef
+     * @param origin
+     * @param destination
+     * @param price
+     * @param departureTime
+     * @param arrivalTime
+     * @throws InvalidTravelDurationException 
+     */
+    public TravelTicket(Long bookingRef, String origin, String destination, 
+            BigDecimal price, 
+            LocalDateTime departureTime, 
+            LocalDateTime arrivalTime)
+    throws InvalidTravelDurationException {
+        
+        if (Duration.between(departureTime, arrivalTime).isNegative()) {
+            throw new InvalidTravelDurationException("Invalid departure time, cannot arrive before leaving.");
+        }
+        
         this.bookingRef = bookingRef;
         this.origin = origin;
         this.destination = destination;

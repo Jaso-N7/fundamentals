@@ -1,5 +1,6 @@
 package com.mindfulengineering.travelbooking.domain;
 
+import com.mindfulengineering.travelbooking.exceptions.InvalidTravelDurationException;
 import java.math.BigDecimal;
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -19,7 +20,8 @@ public final class BusTicket extends TravelTicket {
 
     public BusTicket(Long bookingRef, String origin, String destination, 
             BigDecimal price, LocalDateTime departureTime, 
-            LocalDateTime arrivalTime, String[] permittedProviders) {
+            LocalDateTime arrivalTime, String[] permittedProviders)
+    throws InvalidTravelDurationException {
         super(bookingRef, origin, destination, price, departureTime, arrivalTime);
         this.permittedProviders = permittedProviders;
     }

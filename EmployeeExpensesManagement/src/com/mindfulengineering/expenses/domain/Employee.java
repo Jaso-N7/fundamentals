@@ -26,7 +26,7 @@ public class Employee {
         this.jobTitle = jobTitle;
     }
 
-    public Employee(int id, String title, String firstName, String surname, 
+    public Employee(int id, String title, String firstName, String surname,
             String jobTitle, Department department) {
         this.id = id;
         this.title = title;
@@ -112,27 +112,31 @@ public class Employee {
 
     @Override
     public String toString() {
-        
+
         StringBuilder sb = new StringBuilder();
-        
+
         sb.append("Employee ").append(id).append(": ")
                 .append(title).append(" ").append(firstName).append(" ").append(surname)
                 .append(" (");
-        
+
         if (jobTitle != null) {
             sb.append(jobTitle);
         }
-        
+
         sb.append(") ");
-        
+
         if (department != null) {
             sb.append("works in the ").append(department).append(" department");
         }
-        
+
         if (claims != null) {
-        sb.append("With claims ").append(Arrays.toString(claims));
+            sb.append("With the following claims ");
+            for (var claim : claims) {
+                sb.append("\n").append(claim);
+            }
+
         }
-        
+
         return sb.toString();
     }
 
@@ -181,6 +185,5 @@ public class Employee {
         }
         return Arrays.deepEquals(this.claims, other.claims);
     }
-    
-    
+
 }

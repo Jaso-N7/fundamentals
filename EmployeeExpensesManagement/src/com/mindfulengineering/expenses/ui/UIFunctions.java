@@ -3,9 +3,12 @@ package com.mindfulengineering.expenses.ui;
 import com.mindfulengineering.expenses.domain.Department;
 import com.mindfulengineering.expenses.domain.Employee;
 import com.mindfulengineering.expenses.domain.Employees;
+import com.mindfulengineering.expenses.domain.ExpenseClaim;
 import com.mindfulengineering.expenses.exceptions.InvalidEmployeeIdException;
 import com.mindfulengineering.expenses.exceptions.NameTooShortException;
 import com.mindfulengineering.expenses.utilities.EmployeeUtilities;
+import java.math.BigDecimal;
+import java.time.ZonedDateTime;
 import java.util.Scanner;
 
 /**
@@ -36,8 +39,7 @@ public class UIFunctions {
             switch (choice) {
                 case 'e' ->
                     employees.add(registerNewEmployee());
-                case 'c' -> {
-                }
+                case 'c' -> employees.add(registerNewExpenseClaim());
                 case 'p' -> employees.viewEmployees();
                 case 'x' -> {
                     break;
@@ -133,5 +135,23 @@ public class UIFunctions {
             return getEmployeeDept();
             
         }
+    }
+    
+    public static ExpenseClaim registerNewExpenseClaim () {
+    
+        System.out.println("Enter the claim Id");
+        int cid = scanner.nextInt();
+        scanner.nextLine();
+        
+        System.out.println("Enter the employee Id");
+        int eid = scanner.nextInt();
+        scanner.nextLine();
+        
+        System.out.println("Enter the amount");
+        Double amount = scanner.nextDouble();
+        scanner.nextLine();
+        
+        return new ExpenseClaim.Builder(cid, eid, ZonedDateTime.now(), amount)
+                .build();
     }
 }

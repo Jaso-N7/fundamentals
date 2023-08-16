@@ -1,4 +1,4 @@
-package com.mindfulengineering.expenses;
+package com.mindfulengineering.expenses.ui;
 
 import com.mindfulengineering.expenses.domain.Department;
 import com.mindfulengineering.expenses.domain.Employee;

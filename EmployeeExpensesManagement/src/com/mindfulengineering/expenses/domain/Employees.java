@@ -25,7 +25,7 @@ public class Employees {
      *
      * @param employee
      */
-    public void addEmployee(Employee employee) {
+    public void add(Employee employee) {
 
         int firstEmptyPosition = -1;
 
@@ -40,6 +40,21 @@ public class Employees {
         } else {
             employees[firstEmptyPosition] = employee;
         }
+    }
+    
+    /**
+     * Adds an Expense Claim to the identified Employee
+     * 
+     * @param claim
+     * @throws NullPointerException 
+     */
+    public void add(ExpenseClaim claim) 
+            throws NullPointerException {
+    
+        Employee e = findById(claim.getId());
+        if (e != null)
+            e.addClaim(claim);
+    
     }
 
     public void viewEmployees() {
@@ -77,26 +92,21 @@ public class Employees {
      * Be mindful that the Employee registry needs to be populated first.
      * 
      * @param employeeId - Employee's ID
-     * @return true if the employee exists; Otherwise false
+     * @return Maybe the Employee object if exists
+     * @throws NullPointerException when the Employee is not found
      */
-    public boolean findById (Integer employeeId) {
+    public Employee findById (Integer employeeId) 
+            throws NullPointerException {
 
         Objects.requireNonNull(employeeId, "An employee ID is required.");
 
-        try {
-
-            for (Employee e : employees) {
+        for (Employee e : employees) {
                 if (e != null && e.getId() == employeeId) {
-                    return true;
+                    return e;
                 }
             }
             
-        } catch (NullPointerException np) {
-            System.out.println("No employees have been registered.");
-            return false;
-        }
-
-        return false;
+        return null;
     }
 
     @Override

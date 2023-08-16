@@ -35,7 +35,7 @@ public class UIFunctions {
 
             switch (choice) {
                 case 'e' ->
-                    employees.addEmployee(registerNewEmployee());
+                    employees.add(registerNewEmployee());
                 case 'c' -> {
                 }
                 case 'p' -> employees.viewEmployees();

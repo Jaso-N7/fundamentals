@@ -16,7 +16,7 @@ public class Employee {
     private String surname;
     private String jobTitle;
     private Department department;
-    private ExpenseClaim[] claims;
+    private final ExpenseClaim[] claims = new ExpenseClaim[10];
 
     public Employee() {
     }
@@ -89,6 +89,20 @@ public class Employee {
         this.department = department;
     }
 
+    /**
+     * Adds a new claim to this Employee (object)
+     * @param claim 
+     */
+    public void addClaim(ExpenseClaim claim) {
+        
+        // Find the first non-empty spot in the array and add the claim
+        for (int i = 0; i < claims.length; i++) {
+            if (claims[i] == null) {
+                claims[i] = claim;
+            }
+        }
+    }
+    
     /**
      *
      * @return The name used for mailing

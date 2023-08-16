@@ -33,9 +33,9 @@ public class Main {
         dalton.setSurname("Dalton");
         
         Employees employees = new Employees(15);
-        employees.addEmployee(mac);
-        employees.addEmployee(dalton);
-        employees.addEmployee( new Employee(3, "Mrs.", "Susan", "Brown", 
+        employees.add(mac);
+        employees.add(dalton);
+        employees.add( new Employee(3, "Mrs.", "Susan", "Brown", 
                 "Director", Department.INFOTECH) );
         
         employees.viewEmployees();

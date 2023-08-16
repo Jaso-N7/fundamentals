@@ -12,7 +12,7 @@ import java.util.Scanner;
  *
  * @author jason
  */
-public class RegisterNewEmployee {
+public class UIFunctions {
 
     private final static String MENU = """
                           Expense Management System
@@ -20,8 +20,7 @@ public class RegisterNewEmployee {
                           e - register new employee
                           c - register new claim
                           p - print all employees
-                          x - exit
-                          """;
+                          x - exit""";
     
     private final static Scanner scanner = new Scanner(System.in);
 

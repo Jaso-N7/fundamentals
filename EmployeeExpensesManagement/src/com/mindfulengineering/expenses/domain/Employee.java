@@ -99,6 +99,7 @@ public class Employee {
         for (int i = 0; i < claims.length; i++) {
             if (claims[i] == null) {
                 claims[i] = claim;
+                break;
             }
         }
     }

@@ -1,5 +1,6 @@
 package com.mindfulengineering.expenses.domain;
 
+import java.util.Objects;
 
 /**
  * A wrapper class for holding an array of Employee(s)
@@ -68,6 +69,34 @@ public class Employees {
         }
 
         return null;
+    }
+
+    /**
+     * Finds an employee by their Employee ID
+     * 
+     * Be mindful that the Employee registry needs to be populated first.
+     * 
+     * @param employeeId - Employee's ID
+     * @return true if the employee exists; Otherwise false
+     */
+    public boolean findById (Integer employeeId) {
+
+        Objects.requireNonNull(employeeId, "An employee ID is required.");
+
+        try {
+
+            for (Employee e : employees) {
+                if (e != null && e.getId() == employeeId) {
+                    return true;
+                }
+            }
+            
+        } catch (NullPointerException np) {
+            System.out.println("No employees have been registered.");
+            return false;
+        }
+
+        return false;
     }
 
     @Override

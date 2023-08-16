@@ -87,5 +87,10 @@ public class Main {
         System.out.println(mac == mac);
         System.out.println(mac.getClass());
         
+        // Testing if employee exists
+        System.out.println("\nTesting for employees existence ---");
+        System.out.println(employees.findById(2));
+        System.out.println(employees.findById(666));
+        
     }
 }

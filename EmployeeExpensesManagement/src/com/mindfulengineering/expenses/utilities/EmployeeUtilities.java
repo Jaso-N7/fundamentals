@@ -7,6 +7,7 @@ package com.mindfulengineering.expenses.utilities;
 import com.mindfulengineering.expenses.domain.Employee;
 import com.mindfulengineering.expenses.domain.Employees;
 import com.mindfulengineering.expenses.exceptions.InvalidEmployeeIdException;
+import com.mindfulengineering.expenses.exceptions.NameTooShortException;
 import java.util.Objects;
 
 /**
@@ -47,5 +48,30 @@ public class EmployeeUtilities {
         } catch (NumberFormatException nfe) {
             throw new InvalidEmployeeIdException();
         }
+    }
+    
+    /**
+     * Ensuring that the employee name is valid.
+     * 
+     * @param firstName - Employee's first name
+     * @param surname - Employee's last name
+     * @throws NameTooShortException 
+     */
+    public static void validateEmployeeName (String firstName, String surname)
+            throws NameTooShortException {
+        
+        Objects.requireNonNull(firstName, "First name is required");
+        Objects.requireNonNull(surname, "Surname is required");
+        
+        if (firstName.isBlank() || firstName.isEmpty()) {
+            throw new NameTooShortException();
+        }
+        if (surname.isBlank() || surname.isEmpty()) {
+            throw new NameTooShortException();
+        }
+        
+        if (firstName.length() + surname.length() < 6)
+            throw new NameTooShortException();
+        
     }
 }

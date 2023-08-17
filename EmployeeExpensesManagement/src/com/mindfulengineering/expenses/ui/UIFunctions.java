@@ -13,12 +13,12 @@ import java.util.Scanner;
 public class UIFunctions {
 
     private final Scanner scanner;
-    
-    public UIFunctions () {
-        scanner = new Scanner(System.in);   
+
+    public UIFunctions() {
+        scanner = new Scanner(System.in);
     }
-            
-    public Employee registerNewEmployee() {
+
+    public Employee registerNewEmployee(boolean isStaff) {
 
         Integer eid = getEmployeeId();
 
@@ -32,13 +32,27 @@ public class UIFunctions {
 
         Department d = getEmployeeDept();
 
-        return new Employee(eid, title, name[0], name[1], job, d);
+        Employee e = new Employee(eid, title, name[0], name[1], job, d);
+        
+        if (isStaff) {
+
+            System.out.println("Enter username");
+            String u = scanner.nextLine();
+
+            System.out.println("Enter password");
+            String p = scanner.nextLine();
+
+            return StaffEmployee.valueOf(e, u, p);
+            
+        } else {
+            return e;
+        }
     }
 
     /**
-     * Helper class for registerNewEmployee that validates and returns
-     * the Employee ID
-     * 
+     * Helper class for registerNewEmployee that validates and returns the
+     * Employee ID
+     *
      * @return an Integer object representing the Employee ID
      */
     private Integer getEmployeeId() {
@@ -59,9 +73,9 @@ public class UIFunctions {
     /**
      * A helper class for registerNewEmployee, that validates and returns the
      * employees name.
-     * 
+     *
      * @hidden Not using List<String> for this as yet
-     * @return An array containing the employees first and last name, in the 
+     * @return An array containing the employees first and last name, in the
      * respective indices.
      */
     private String[] getEmployeeName() {
@@ -83,40 +97,40 @@ public class UIFunctions {
     }
 
     /**
-     * A helper method to registerNewEmployee that validates and returns the employee's
-     * Department
-     * 
+     * A helper method to registerNewEmployee that validates and returns the
+     * employee's Department
+     *
      * @return Department that the employee works in
      */
     private Department getEmployeeDept() {
         try {
-            
+
             System.out.println("Enter the department");
             String dept = scanner.nextLine();
             return Department.valueOf(dept.toUpperCase());
-            
+
         } catch (IllegalArgumentException | NullPointerException x) {
-            
+
             System.out.println("The department you entered was not valid - try again.");
             return getEmployeeDept();
-            
+
         }
     }
-    
-    public ExpenseClaim registerNewExpenseClaim () {
-    
+
+    public ExpenseClaim registerNewExpenseClaim() {
+
         System.out.println("Enter the claim Id");
         int cid = scanner.nextInt();
         scanner.nextLine();
-        
+
         System.out.println("Enter the employee Id");
         int eid = scanner.nextInt();
         scanner.nextLine();
-        
+
         System.out.println("Enter the amount");
         Double amount = scanner.nextDouble();
         scanner.nextLine();
-        
+
         return new ExpenseClaim.Builder(cid, eid, ZonedDateTime.now(), amount)
                 .build();
     }

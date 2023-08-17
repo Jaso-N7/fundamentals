@@ -33,7 +33,28 @@ public class ExpenseManagementSystem {
             choice = scanner.nextLine().toLowerCase().charAt(0);
 
             switch (choice) {
-                case 'e' -> employees.add(ui.registerNewEmployee());
+                case 'e' -> {
+                    boolean keepAsking = true;
+                    while (keepAsking) {
+                        System.out.println("Is this a staff member? (y / n)");
+                        char ynp = scanner.nextLine().toLowerCase().charAt(0);
+
+                        switch (ynp) {
+                            case 'y' -> {
+                                employees.add(ui.registerNewEmployee(true));
+                                keepAsking = false;
+                            }
+                            case 'n' -> {
+                                employees.add(ui.registerNewEmployee(false));
+                                keepAsking = false;
+                            }
+                            default -> {
+                                System.out.println("Invalid option, enter either 'Y' or 'N'");
+                            }
+                        } 
+                    }
+                }
+
                 case 'c' -> {
                     ExpenseClaim claim = ui.registerNewExpenseClaim();
                     try {
@@ -47,6 +68,7 @@ public class ExpenseManagementSystem {
                 case 'x' -> { break; }
                 default -> System.out.println("Invalid choice");
             }
+
         } while (choice != 'x');
 
     }

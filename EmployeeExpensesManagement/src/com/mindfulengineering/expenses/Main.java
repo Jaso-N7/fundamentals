@@ -6,6 +6,7 @@ import com.mindfulengineering.expenses.domain.ExpenseItem;
 import com.mindfulengineering.expenses.domain.Employees;
 import com.mindfulengineering.expenses.domain.Employee;
 import com.mindfulengineering.expenses.domain.ExpenseType;
+import com.mindfulengineering.expenses.domain.StaffEmployee;
 import com.mindfulengineering.expenses.exceptions.EmployeeNotFoundException;
 import com.mindfulengineering.expenses.utilities.EmployeeUtilities;
 import java.time.ZonedDateTime;
@@ -97,6 +98,14 @@ public class Main {
         } catch (EmployeeNotFoundException enf) {
             System.out.println("Employee " + rand + " not found");
         }
+        
+        System.out.println("Testing Staff ---");
+        StaffEmployee staff = StaffEmployee.valueOf(dalton, "dalton", "The-Big-Cheese!");
+        employees.add(staff);
+        //System.out.println(staff);
+        employees.viewEmployees();
+        
+       // employees.add(claimPaid);
         
     }
 }

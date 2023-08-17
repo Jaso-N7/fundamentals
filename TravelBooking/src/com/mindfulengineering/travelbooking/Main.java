@@ -4,6 +4,7 @@ import com.mindfulengineering.travelbooking.domain.BusTicket;
 import com.mindfulengineering.travelbooking.domain.PlaneTicket;
 import com.mindfulengineering.travelbooking.domain.TrainTicket;
 import com.mindfulengineering.travelbooking.domain.TravelClass;
+import com.mindfulengineering.travelbooking.domain.TravelTicket;
 
 import com.mindfulengineering.travelbooking.exceptions.InvalidTravelDurationException;
 
@@ -24,8 +25,9 @@ public class Main {
         TrainTicket trainTicket = new TrainTicket();
         trainTicket.cancel();
 
+        TrainTicket trainTicket2 = null;
         try {
-            TrainTicket trainTicket2
+            trainTicket2
                     = new TrainTicket(123L, "London", "Edinburgh",
                             new BigDecimal("59.00"),
                             LocalDateTime.of(2023, 9, 7, 16, 3),
@@ -70,25 +72,43 @@ public class Main {
                 LocalDateTime.of(2023, 3, 7, 19, 3),
                 providers);
 
-        // ArrayList<BusTicket> busTickets = new ArrayList<>();
-        HashSet<BusTicket> busTickets = new HashSet<>();
-        busTickets.add(busTicket);
-        busTickets.add(busTicket2);
-        busTickets.add(busTicket2);
-        busTickets.add(busTicket2);
-        busTickets.add(busTicket2);
-        busTickets.add(busTicket2);
-        busTickets.add(busTicket3);
+        ArrayList<TravelTicket> tickets = new ArrayList<>();
+        // HashSet<TravelTicket> tickets = new HashSet<>();
+        tickets.add(busTicket);
+        tickets.add(busTicket2);
+        tickets.add(busTicket2);
+        tickets.add(busTicket2);
+        tickets.add(busTicket2);
+        tickets.add(busTicket2);
+        tickets.add(busTicket3);
+        tickets.add(trainTicket2);
 
-//        System.out.println(busTickets);
-//        System.out.println(busTickets.get(1)); // Retrieve the second ticket
+//        System.out.println(tickets);
+//        System.out.println(tickets.get(1)); // Retrieve the second ticket
 //
-//        for (int i = 0; i < busTickets.size(); i++) {
-//            System.out.println(busTickets.get(i));
+//        for (int i = 0; i < tickets.size(); i++) {
+//            System.out.println(tickets.get(i));
 //        }
+        for (var b : tickets) {
+            System.out.println(b);
+        }
+        
+        TravelTicket foundTicket = tickets.get(2);
+        System.out.println(foundTicket);
 
-        for (BusTicket b : busTickets) {
-            System.out.println(b.getBookingRef());
+        if (foundTicket instanceof BusTicket bt) {
+            
+            System.out.println("Found a bus ticket");
+            System.out.println(bt.permittedProviders());
+            
+        } else if (foundTicket instanceof TrainTicket) {
+            
+            System.out.println("Found a train ticket");
+            TrainTicket tt = (TrainTicket) foundTicket;
+            System.out.println(tt.getCarriageNumber());
+            
+        } else {
+            System.out.println("This is a plane ticket");
         }
         
         try {

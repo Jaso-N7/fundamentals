@@ -1,5 +1,6 @@
 package com.mindfulengineering.expenses.domain;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
 
@@ -16,16 +17,16 @@ public class Employee {
     private String surname;
     private String jobTitle;
     private Department department;
-    private final ExpenseClaim[] claims;
+    private ArrayList<ExpenseClaim> claims;
 
     public Employee() {
-        claims = new ExpenseClaim[10];
+        claims = new ArrayList<>(10);
     }
 
     public Employee(int id, String jobTitle) {
         this.id = id;
         this.jobTitle = jobTitle;
-        claims = new ExpenseClaim[10];
+        claims = new ArrayList<>(10);
     }
 
     public Employee(int id, String title, String firstName, String surname,
@@ -36,7 +37,7 @@ public class Employee {
         this.surname = surname;
         this.jobTitle = jobTitle;
         this.department = department;
-        claims = new ExpenseClaim[10];
+        claims = new ArrayList<>(10);
     }
 
     public int getId() {
@@ -97,14 +98,7 @@ public class Employee {
      * @param claim 
      */
     public void addClaim(ExpenseClaim claim) {
-        
-        // Find the first non-empty spot in the array and add the claim
-        for (int i = 0; i < claims.length; i++) {
-            if (claims[i] == null) {
-                claims[i] = claim;
-                break;
-            }
-        }
+        claims.add(claim);
     }
     
     /**
@@ -159,13 +153,13 @@ public class Employee {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 59 * hash + this.id;
-        hash = 59 * hash + Objects.hashCode(this.title);
-        hash = 59 * hash + Objects.hashCode(this.firstName);
-        hash = 59 * hash + Objects.hashCode(this.surname);
-        hash = 59 * hash + Objects.hashCode(this.jobTitle);
-        hash = 59 * hash + Objects.hashCode(this.department);
-        hash = 59 * hash + Arrays.deepHashCode(this.claims);
+        hash = 41 * hash + this.id;
+        hash = 41 * hash + Objects.hashCode(this.title);
+        hash = 41 * hash + Objects.hashCode(this.firstName);
+        hash = 41 * hash + Objects.hashCode(this.surname);
+        hash = 41 * hash + Objects.hashCode(this.jobTitle);
+        hash = 41 * hash + Objects.hashCode(this.department);
+        hash = 41 * hash + Objects.hashCode(this.claims);
         return hash;
     }
 
@@ -196,10 +190,10 @@ public class Employee {
         if (!Objects.equals(this.jobTitle, other.jobTitle)) {
             return false;
         }
-        if (!Objects.equals(this.department, other.department)) {
+        if (this.department != other.department) {
             return false;
         }
-        return Arrays.deepEquals(this.claims, other.claims);
+        return Objects.equals(this.claims, other.claims);
     }
 
 }

@@ -1,6 +1,7 @@
 package com.mindfulengineering.expenses.domain;
 
 import com.mindfulengineering.expenses.exceptions.EmployeeNotFoundException;
+import java.util.HashSet;
 import java.util.Objects;
 
 /**
@@ -10,7 +11,7 @@ import java.util.Objects;
  */
 public class Employees {
 
-    private final Employee[] employees;
+    private final HashSet<Employee> employees;
 
     /**
      * Constructs a class with an array of employees
@@ -18,7 +19,7 @@ public class Employees {
      * @param numberOfEmployees Used to set the length of the array
      */
     public Employees(int numberOfEmployees) {
-        employees = new Employee[numberOfEmployees];
+        employees = new HashSet<>(numberOfEmployees);
     }
 
     /**
@@ -28,42 +29,30 @@ public class Employees {
      */
     public void add(Employee employee) {
 
-        int firstEmptyPosition = -1;
+        employees.add(employee);
 
-        for (int i = 0; i < employees.length; i++) {
-            if (firstEmptyPosition == -1 && employees[i] == null) {
-                firstEmptyPosition = i;
-            }
-        }
-
-        if (firstEmptyPosition == -1) {
-            System.out.println("Sorry, the array is full");
-        } else {
-            employees[firstEmptyPosition] = employee;
-        }
     }
 
     /**
      * Adds an Expense Claim to the identified Employee
      *
      * @param claim
-     * @throws EmployeeNotFoundException when the Employee has not been registered
+     * @throws EmployeeNotFoundException when the Employee has not been
+     * registered
      */
     public void add(ExpenseClaim claim)
             throws EmployeeNotFoundException {
 
-            Employee e = findById(claim.getEmployeeId());
-            if (e != null) {
-                e.addClaim(claim);
-            }
+        Employee e = findById(claim.getEmployeeId());
+        if (e != null) {
+            e.addClaim(claim);
+        }
     }
 
     public void viewEmployees() {
 
         for (Employee e : employees) {
-            if (e != null) {
-                System.out.println(e);
-            }
+            System.out.println(e);
         }
 
     }
@@ -79,7 +68,7 @@ public class Employees {
             throws NullPointerException {
 
         for (Employee e : employees) {
-            if (e != null && surname.equalsIgnoreCase(e.getSurname())) {
+            if (surname.equalsIgnoreCase(e.getSurname())) {
                 return e;
             }
         }
@@ -102,7 +91,7 @@ public class Employees {
         Objects.requireNonNull(employeeId, "An employee ID is required.");
 
         for (Employee e : employees) {
-            if (e != null && e.getId() == employeeId) {
+            if (e.getId() == employeeId) {
                 return e;
             }
         }
@@ -115,9 +104,7 @@ public class Employees {
         StringBuilder sb = new StringBuilder();
 
         for (var e : employees) {
-            if (e != null) {
-                sb.append(e).append('\n');
-            }
+            sb.append(e).append('\n');
         }
         return sb.toString();
     }

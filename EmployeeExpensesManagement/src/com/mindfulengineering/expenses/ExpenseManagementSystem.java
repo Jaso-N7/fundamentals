@@ -5,8 +5,6 @@ import com.mindfulengineering.expenses.domain.ExpenseClaim;
 import com.mindfulengineering.expenses.exceptions.EmployeeNotFoundException;
 import com.mindfulengineering.expenses.ui.UIFunctions;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *

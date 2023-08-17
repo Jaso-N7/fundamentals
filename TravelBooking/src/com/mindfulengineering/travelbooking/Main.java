@@ -10,6 +10,7 @@ import com.mindfulengineering.travelbooking.exceptions.InvalidTravelDurationExce
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.Month;
+import java.util.ArrayList;
 
 /**
  *
@@ -17,7 +18,7 @@ import java.time.Month;
  */
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InvalidTravelDurationException {
 
         TrainTicket trainTicket = new TrainTicket();
         trainTicket.cancel();
@@ -37,21 +38,53 @@ public class Main {
             System.out.println("Train Ticket void: " + itd.getMessage());
         }
 
-        try {
+        ArrayList<String> providers = new ArrayList<>();
+        providers.add("JUTC");
+        providers.add("Knutsford Express");
+        providers.add("JUTA");
 
-            String[] providers = {"JUTC", "Knutsford Express", "JUTA"};
+        System.out.println("Size of " + providers + ": " + providers.size()); // expects 3 at this point
 
-            BusTicket busTicket = new BusTicket(513L, "Kingsto", "Montego Bay",
-                    new BigDecimal("2500.00"),
-                    LocalDateTime.of(2023, 3, 7, 16, 3),
-                    LocalDateTime.of(2023, 3, 7, 19, 3),
-                    providers);
+        providers.remove("JUTA");
+        System.out.println("Size of " + providers + ": " + providers.size()); // expects 2 at this point
 
-            busTicket.cancel();
-        } catch (InvalidTravelDurationException itd) {
-            System.out.println("Bus Ticket void: " + itd.getMessage());
+        providers.remove(1);
+        System.out.println("Size of " + providers + ": " + providers.size()); // expects 1 at this point
+
+        BusTicket busTicket = new BusTicket(513L, "Kingston", "Montego Bay",
+                new BigDecimal("2500.00"),
+                LocalDateTime.of(2023, 3, 7, 16, 3),
+                LocalDateTime.of(2023, 3, 7, 19, 3),
+                providers);
+
+        BusTicket busTicket2 = new BusTicket(950L, "Kingston", "Mandeville",
+                new BigDecimal("2500.00"),
+                LocalDateTime.of(2023, 3, 7, 16, 3),
+                LocalDateTime.of(2023, 3, 7, 19, 3),
+                providers);
+
+        BusTicket busTicket3 = new BusTicket(756L, "Falmouth", "Kingston",
+                new BigDecimal("2500.00"),
+                LocalDateTime.of(2023, 3, 7, 16, 3),
+                LocalDateTime.of(2023, 3, 7, 19, 3),
+                providers);
+
+        ArrayList<BusTicket> busTickets = new ArrayList<>();
+        busTickets.add(busTicket);
+        busTickets.add(busTicket2);
+        busTickets.add(busTicket3);
+
+        System.out.println(busTickets);
+        System.out.println(busTickets.get(1)); // Retrieve the second ticket
+
+        for (int i = 0; i < busTickets.size(); i++) {
+            System.out.println(busTickets.get(i));
         }
 
+        for (BusTicket b : busTickets) {
+            System.out.println(b.getBookingRef());
+
+        }
         try {
 
             PlaneTicket planeTicket = new PlaneTicket(1593L, "MKJP", "MIA",

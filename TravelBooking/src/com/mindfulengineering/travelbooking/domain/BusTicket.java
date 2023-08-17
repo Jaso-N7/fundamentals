@@ -5,6 +5,8 @@ import java.math.BigDecimal;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  *
@@ -12,7 +14,7 @@ import java.util.Arrays;
  */
 public final class BusTicket extends TravelTicket {
     
-    private String[] permittedProviders;
+    private ArrayList<String> permittedProviders;
 
     public BusTicket() {
         super();
@@ -20,17 +22,17 @@ public final class BusTicket extends TravelTicket {
 
     public BusTicket(Long bookingRef, String origin, String destination, 
             BigDecimal price, LocalDateTime departureTime, 
-            LocalDateTime arrivalTime, String[] permittedProviders)
+            LocalDateTime arrivalTime, ArrayList<String> permittedProviders)
     throws InvalidTravelDurationException {
         super(bookingRef, origin, destination, price, departureTime, arrivalTime);
         this.permittedProviders = permittedProviders;
     }
     
-    public String[] permittedProviders() {
+    public ArrayList<String> permittedProviders() {
         return permittedProviders;
     }
 
-    public void setPermittedProviders(String[] permittedProviders) {
+    public void setPermittedProviders(ArrayList<String> permittedProviders) {
         this.permittedProviders = permittedProviders;
     }
 
@@ -49,14 +51,13 @@ public final class BusTicket extends TravelTicket {
 
     @Override
     public String toString() {
-        return "Bus Ticket from " + Arrays.toString(permittedProviders) + '\n' +
-                super.toString();
+        return permittedProviders + " Bus Ticket " + super.toString() + '\n';
     }
 
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 23 * hash + Arrays.deepHashCode(this.permittedProviders);
+        int hash = 5;
+        hash = 97 * hash + Objects.hashCode(this.permittedProviders);
         return hash;
     }
 
@@ -72,7 +73,7 @@ public final class BusTicket extends TravelTicket {
             return false;
         }
         final BusTicket other = (BusTicket) obj;
-        return Arrays.deepEquals(this.permittedProviders, other.permittedProviders);
+        return Objects.equals(this.permittedProviders, other.permittedProviders);
     }
-    
+
 }

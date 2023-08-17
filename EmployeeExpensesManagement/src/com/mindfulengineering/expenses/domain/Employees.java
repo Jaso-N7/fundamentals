@@ -1,5 +1,6 @@
 package com.mindfulengineering.expenses.domain;
 
+import com.mindfulengineering.expenses.exceptions.EmployeeNotFoundException;
 import java.util.Objects;
 
 /**
@@ -41,20 +42,20 @@ public class Employees {
             employees[firstEmptyPosition] = employee;
         }
     }
-    
+
     /**
      * Adds an Expense Claim to the identified Employee
-     * 
+     *
      * @param claim
-     * @throws NullPointerException 
+     * @throws EmployeeNotFoundException when the Employee has not been registered
      */
-    public void add(ExpenseClaim claim) 
-            throws NullPointerException {
-    
-        Employee e = findById(claim.getId());
-        if (e != null)
-            e.addClaim(claim);
-    
+    public void add(ExpenseClaim claim)
+            throws EmployeeNotFoundException {
+
+            Employee e = findById(claim.getEmployeeId());
+            if (e != null) {
+                e.addClaim(claim);
+            }
     }
 
     public void viewEmployees() {
@@ -88,24 +89,24 @@ public class Employees {
 
     /**
      * Finds an employee by their Employee ID
-     * 
+     *
      * Be mindful that the Employee registry needs to be populated first.
-     * 
+     *
      * @param employeeId - Employee's ID
      * @return Maybe the Employee object if exists
-     * @throws NullPointerException when the Employee is not found
+     * @throws EmployeeNotFoundException when the Employee is not found
      */
-    public Employee findById (Integer employeeId) 
-            throws NullPointerException {
+    public Employee findById(Integer employeeId)
+            throws EmployeeNotFoundException {
 
         Objects.requireNonNull(employeeId, "An employee ID is required.");
 
         for (Employee e : employees) {
-                if (e != null && e.getId() == employeeId) {
-                    return e;
-                }
+            if (e != null && e.getId() == employeeId) {
+                return e;
             }
-            
+        }
+
         return null;
     }
 

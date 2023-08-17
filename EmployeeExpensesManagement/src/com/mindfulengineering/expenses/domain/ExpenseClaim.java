@@ -7,7 +7,7 @@ import java.util.Objects;
 /**
  * An ExpenseClaim is a Class of:
  * 
- * ExpenseClaim ec = new ExpenseClaim.Builder(int, int, ZonedDateTime, double)
+ * ExpenseClaim ec = new ExpenseClaim.Builder(ExpenseClaimId, EmployeeID, ZonedDateTime, double)
  *                   .approved(Boolean)
  *                   .paid(Boolean)
  *                   .build()

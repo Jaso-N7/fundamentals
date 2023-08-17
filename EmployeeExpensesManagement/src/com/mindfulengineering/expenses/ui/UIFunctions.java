@@ -1,13 +1,8 @@
 package com.mindfulengineering.expenses.ui;
 
-import com.mindfulengineering.expenses.domain.Department;
-import com.mindfulengineering.expenses.domain.Employee;
-import com.mindfulengineering.expenses.domain.Employees;
-import com.mindfulengineering.expenses.domain.ExpenseClaim;
-import com.mindfulengineering.expenses.exceptions.InvalidEmployeeIdException;
-import com.mindfulengineering.expenses.exceptions.NameTooShortException;
+import com.mindfulengineering.expenses.domain.*;
+import com.mindfulengineering.expenses.exceptions.*;
 import com.mindfulengineering.expenses.utilities.EmployeeUtilities;
-import java.math.BigDecimal;
 import java.time.ZonedDateTime;
 import java.util.Scanner;
 
@@ -17,42 +12,13 @@ import java.util.Scanner;
  */
 public class UIFunctions {
 
-    private final static String MENU = """
-                          Expense Management System
-                          -------------------------
-                          e - register new employee
-                          c - register new claim
-                          p - print all employees
-                          x - exit""";
+    private final Scanner scanner;
     
-    private final static Scanner scanner = new Scanner(System.in);
-
-    public static void main(String[] args) {
-
-        Employees employees = new Employees(20);
-        
-        char choice;
-        do {
-            System.out.println(MENU);
-            choice = scanner.nextLine().toLowerCase().charAt(0);
-
-            switch (choice) {
-                case 'e' ->
-                    employees.add(registerNewEmployee());
-                case 'c' -> employees.add(registerNewExpenseClaim());
-                case 'p' -> employees.viewEmployees();
-                case 'x' -> {
-                    break;
-                }
-                default ->
-                    System.out.println("Invalid choice");
-
-            }
-        } while (choice != 'x');
-
+    public UIFunctions () {
+        scanner = new Scanner(System.in);   
     }
-
-    private static Employee registerNewEmployee() {
+            
+    public Employee registerNewEmployee() {
 
         Integer eid = getEmployeeId();
 
@@ -75,7 +41,7 @@ public class UIFunctions {
      * 
      * @return an Integer object representing the Employee ID
      */
-    private static Integer getEmployeeId() {
+    private Integer getEmployeeId() {
 
         Integer eid;
         try {
@@ -98,7 +64,7 @@ public class UIFunctions {
      * @return An array containing the employees first and last name, in the 
      * respective indices.
      */
-    private static String[] getEmployeeName() {
+    private String[] getEmployeeName() {
 
         System.out.println("Enter the first name");
         String fn = scanner.nextLine();
@@ -122,7 +88,7 @@ public class UIFunctions {
      * 
      * @return Department that the employee works in
      */
-    private static Department getEmployeeDept() {
+    private Department getEmployeeDept() {
         try {
             
             System.out.println("Enter the department");
@@ -137,7 +103,7 @@ public class UIFunctions {
         }
     }
     
-    public static ExpenseClaim registerNewExpenseClaim () {
+    public ExpenseClaim registerNewExpenseClaim () {
     
         System.out.println("Enter the claim Id");
         int cid = scanner.nextInt();

@@ -6,9 +6,11 @@ import com.mindfulengineering.expenses.domain.ExpenseItem;
 import com.mindfulengineering.expenses.domain.Employees;
 import com.mindfulengineering.expenses.domain.Employee;
 import com.mindfulengineering.expenses.domain.ExpenseType;
+import com.mindfulengineering.expenses.exceptions.EmployeeNotFoundException;
 import com.mindfulengineering.expenses.utilities.EmployeeUtilities;
 import java.time.ZonedDateTime;
 import java.time.ZoneId;
+import java.util.Random;
 
 /**
  *
@@ -89,8 +91,12 @@ public class Main {
         
         // Testing if employee exists
         System.out.println("\nTesting for employees existence ---");
-        System.out.println(employees.findById(2));
-        System.out.println(employees.findById(666));
+        int rand = (int) (Math.random() * 5); 
+        try {
+            System.out.println(employees.findById(rand));
+        } catch (EmployeeNotFoundException enf) {
+            System.out.println("Employee " + rand + " not found");
+        }
         
     }
 }

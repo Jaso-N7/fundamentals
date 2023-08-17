@@ -16,14 +16,16 @@ public class Employee {
     private String surname;
     private String jobTitle;
     private Department department;
-    private final ExpenseClaim[] claims = new ExpenseClaim[10];
+    private final ExpenseClaim[] claims;
 
     public Employee() {
+        claims = new ExpenseClaim[10];
     }
 
     public Employee(int id, String jobTitle) {
         this.id = id;
         this.jobTitle = jobTitle;
+        claims = new ExpenseClaim[10];
     }
 
     public Employee(int id, String title, String firstName, String surname,
@@ -34,6 +36,7 @@ public class Employee {
         this.surname = surname;
         this.jobTitle = jobTitle;
         this.department = department;
+        claims = new ExpenseClaim[10];
     }
 
     public int getId() {
@@ -144,13 +147,11 @@ public class Employee {
             sb.append("works in the ").append(department).append(" department");
         }
 
-        if (claims != null) {
-            sb.append("With the following claims ");
-            for (var claim : claims) {
-                sb.append("\n").append(claim);
-            }
-
+        for (var claim : claims) {
+            sb.append("\n").append(claim);
         }
+
+        
 
         return sb.toString();
     }

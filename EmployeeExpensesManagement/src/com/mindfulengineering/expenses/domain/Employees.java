@@ -11,16 +11,7 @@ import java.util.Objects;
  */
 public class Employees {
 
-    private final HashSet<Employee> employees;
-
-    /**
-     * Constructs a class with an array of employees
-     *
-     * @param numberOfEmployees Used to set the length of the array
-     */
-    public Employees(int numberOfEmployees) {
-        employees = new HashSet<>(numberOfEmployees);
-    }
+    private final HashSet<Employee> employees = new HashSet<>();
 
     /**
      * Adds an employee
@@ -28,9 +19,7 @@ public class Employees {
      * @param employee
      */
     public void add(Employee employee) {
-
         employees.add(employee);
-
     }
 
     /**

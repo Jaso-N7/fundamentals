@@ -1,7 +1,6 @@
 package com.mindfulengineering.expenses.domain;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Objects;
 
 /**
@@ -17,16 +16,13 @@ public class Employee {
     private String surname;
     private String jobTitle;
     private Department department;
-    private ArrayList<ExpenseClaim> claims;
+    private final ArrayList<ExpenseClaim> claims = new ArrayList<>();
 
-    public Employee() {
-        claims = new ArrayList<>(10);
-    }
-
+    public Employee() { }
+    
     public Employee(int id, String jobTitle) {
         this.id = id;
-        this.jobTitle = jobTitle;
-        claims = new ArrayList<>(10);
+        this.jobTitle = jobTitle;     
     }
 
     public Employee(int id, String title, String firstName, String surname,
@@ -37,7 +33,6 @@ public class Employee {
         this.surname = surname;
         this.jobTitle = jobTitle;
         this.department = department;
-        claims = new ArrayList<>(10);
     }
 
     public int getId() {
@@ -144,9 +139,7 @@ public class Employee {
         for (var claim : claims) {
             sb.append("\n").append(claim);
         }
-
         
-
         return sb.toString();
     }
 

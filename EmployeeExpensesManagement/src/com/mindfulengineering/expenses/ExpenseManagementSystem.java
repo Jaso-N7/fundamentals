@@ -24,7 +24,7 @@ public class ExpenseManagementSystem {
 
     public static void main(String[] args) {
 
-        Employees employees = new Employees(10);
+        Employees employees = new Employees();
         UIFunctions ui = new UIFunctions();
 
         char choice;

@@ -11,6 +11,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.ArrayList;
+import java.util.HashSet;
 
 /**
  *
@@ -69,22 +70,27 @@ public class Main {
                 LocalDateTime.of(2023, 3, 7, 19, 3),
                 providers);
 
-        ArrayList<BusTicket> busTickets = new ArrayList<>();
+        // ArrayList<BusTicket> busTickets = new ArrayList<>();
+        HashSet<BusTicket> busTickets = new HashSet<>();
         busTickets.add(busTicket);
+        busTickets.add(busTicket2);
+        busTickets.add(busTicket2);
+        busTickets.add(busTicket2);
+        busTickets.add(busTicket2);
         busTickets.add(busTicket2);
         busTickets.add(busTicket3);
 
-        System.out.println(busTickets);
-        System.out.println(busTickets.get(1)); // Retrieve the second ticket
-
-        for (int i = 0; i < busTickets.size(); i++) {
-            System.out.println(busTickets.get(i));
-        }
+//        System.out.println(busTickets);
+//        System.out.println(busTickets.get(1)); // Retrieve the second ticket
+//
+//        for (int i = 0; i < busTickets.size(); i++) {
+//            System.out.println(busTickets.get(i));
+//        }
 
         for (BusTicket b : busTickets) {
             System.out.println(b.getBookingRef());
-
         }
+        
         try {
 
             PlaneTicket planeTicket = new PlaneTicket(1593L, "MKJP", "MIA",

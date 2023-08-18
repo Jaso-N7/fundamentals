@@ -77,6 +77,8 @@ public class ExpenseManagementSystem {
                     }
                 }
 
+                case 'a' -> {}
+                case 'f' -> {}
                 case 'p' -> employees.viewEmployees();
                 case 'x' -> { break; }
                 default -> System.out.println("Invalid choice");

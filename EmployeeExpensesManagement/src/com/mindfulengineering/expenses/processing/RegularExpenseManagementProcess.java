@@ -19,7 +19,7 @@ public final class RegularExpenseManagementProcess
         claims = new LinkedList<>();
     }
     
-    public RegularExpenseManagementProcess create () {
+    public static RegularExpenseManagementProcess create () {
         return new RegularExpenseManagementProcess();
     }
         

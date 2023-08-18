@@ -18,7 +18,7 @@ public final class ExpressExpenseManagementProcess
         this.claims = new LinkedList<>();
     }
     
-    public ExpressExpenseManagementProcess create () {
+    public static ExpressExpenseManagementProcess create () {
         return new ExpressExpenseManagementProcess();
     }
     

@@ -31,7 +31,7 @@ public class ExpenseManagementSystem {
 
         Employees employees = new Employees();
         UIFunctions ui = new UIFunctions();
-        
+
         ExpenseManagementProcess regularProcess = RegularExpenseManagementProcess.create();
         ExpenseManagementProcess expressProcess = ExpressExpenseManagementProcess.create();
 
@@ -59,7 +59,7 @@ public class ExpenseManagementSystem {
                             default -> {
                                 System.out.println("Invalid option, enter either 'Y' or 'N'");
                             }
-                        } 
+                        }
                     }
                 }
 
@@ -67,21 +67,50 @@ public class ExpenseManagementSystem {
                     ExpenseClaim claim = ui.registerNewExpenseClaim();
                     try {
                         employees.add(claim);
-                        
+
                         int regId = regularProcess.registerExpenseClaim(claim);
                         expressProcess.registerExpenseClaim(claim);
                         System.out.println("Claim id " + regId);
-                        
+
                     } catch (EmployeeNotFoundException ex) {
                         System.out.println("There was no employee with ID " + claim.getEmployeeId());
                     }
                 }
 
-                case 'a' -> {}
-                case 'f' -> {}
-                case 'p' -> employees.viewEmployees();
-                case 'x' -> { break; }
-                default -> System.out.println("Invalid choice");
+                case 'a' -> {
+                    System.out.println("Enter the claim Id");
+                    int cid = scanner.nextInt();
+                    scanner.nextLine();
+
+                    System.out.println("Enter approver Id");
+                    int eid = scanner.nextInt();
+                    scanner.nextLine();
+
+                    try {
+                        regularProcess.approveClaim(cid, employees.findById(eid));
+                    } catch (EmployeeNotFoundException enf) {
+                        System.out.println("Invalid approver id");
+                    }
+                }
+                case 'f' -> {
+             
+                    System.out.println("Enter approver Id");
+                    int eid = scanner.nextInt();
+                    scanner.nextLine();
+
+                    try {
+                        expressProcess.approveClaim(-1, employees.findById(eid));
+                    } catch (EmployeeNotFoundException enf) {
+                        System.out.println("Invalid approver id");
+                    }
+                }
+                case 'p' ->
+                    employees.viewEmployees();
+                case 'x' -> {
+                    break;
+                }
+                default ->
+                    System.out.println("Invalid choice");
             }
 
         } while (choice != 'x');

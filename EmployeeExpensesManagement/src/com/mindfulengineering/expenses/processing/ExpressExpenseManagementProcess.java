@@ -12,10 +12,10 @@ import java.util.List;
 public final class ExpressExpenseManagementProcess 
         implements ExpenseManagementProcess {
 
-    private final List<ExpenseClaim> claims;
+    private ExpenseClaim claim;
 
     private ExpressExpenseManagementProcess() {
-        this.claims = new LinkedList<>();
+        
     }
     
     public static ExpressExpenseManagementProcess create () {
@@ -24,20 +24,14 @@ public final class ExpressExpenseManagementProcess
     
     @Override
     public int registerExpenseClaim(ExpenseClaim c) {
+        this.claim = c;
         return -1;
     }
 
     @Override
     public boolean approveClaim(int id, Employee approver) {
         
-        ExpenseClaim c = claims.get(id);
-        double amount = c.getTotalAmount();
-        
-        if (amount < 500) {
-            return true;
-        }
-        
-        return false;
+        return claim.getTotalAmount() < 500;
     }
     
 }

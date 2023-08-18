@@ -70,7 +70,8 @@ public class ExpenseManagementSystem {
 
                         int regId = regularProcess.registerExpenseClaim(claim);
                         expressProcess.registerExpenseClaim(claim);
-                        System.out.println("Claim id " + regId);
+                        System.out.println("The claim has been registered with ID " 
+                                + regId);
 
                     } catch (EmployeeNotFoundException ex) {
                         System.out.println("There was no employee with ID " + claim.getEmployeeId());

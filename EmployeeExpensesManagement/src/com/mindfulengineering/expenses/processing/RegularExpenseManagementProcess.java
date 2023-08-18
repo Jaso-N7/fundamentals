@@ -31,6 +31,7 @@ public final class RegularExpenseManagementProcess
     @Override
     public int registerExpenseClaim(ExpenseClaim c) {
         claims.add(c);
+        // return claims.size() - 1; - Matt's version
         return claims.indexOf(c);
     }
 

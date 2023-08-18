@@ -3,6 +3,9 @@ package com.mindfulengineering.expenses;
 import com.mindfulengineering.expenses.domain.Employees;
 import com.mindfulengineering.expenses.domain.ExpenseClaim;
 import com.mindfulengineering.expenses.exceptions.EmployeeNotFoundException;
+import com.mindfulengineering.expenses.processing.ExpenseManagementProcess;
+import com.mindfulengineering.expenses.processing.ExpressExpenseManagementProcess;
+import com.mindfulengineering.expenses.processing.RegularExpenseManagementProcess;
 import com.mindfulengineering.expenses.ui.UIFunctions;
 import java.util.Scanner;
 
@@ -17,6 +20,8 @@ public class ExpenseManagementSystem {
                           -------------------------
                           e - register new employee
                           c - register new claim
+                          a - approve a claim
+                          f - express claim appoval
                           p - print all employees
                           x - exit""";
 
@@ -26,6 +31,9 @@ public class ExpenseManagementSystem {
 
         Employees employees = new Employees();
         UIFunctions ui = new UIFunctions();
+        
+        ExpenseManagementProcess regularProcess = RegularExpenseManagementProcess.create();
+        ExpenseManagementProcess expressProcess = ExpressExpenseManagementProcess.create();
 
         char choice;
         do {
@@ -59,6 +67,11 @@ public class ExpenseManagementSystem {
                     ExpenseClaim claim = ui.registerNewExpenseClaim();
                     try {
                         employees.add(claim);
+                        
+                        int regId = regularProcess.registerExpenseClaim(claim);
+                        expressProcess.registerExpenseClaim(claim);
+                        System.out.println("Claim id " + regId);
+                        
                     } catch (EmployeeNotFoundException ex) {
                         System.out.println("There was no employee with ID " + claim.getEmployeeId());
                     }

@@ -28,6 +28,13 @@ public final class BusTicket extends TravelTicket {
         this.permittedProviders = permittedProviders;
     }
     
+    public BusTicket(TravelTicket t, ArrayList<String> permittedProviders) 
+    throws InvalidTravelDurationException {
+        this(t.getBookingRef(), t.getOrigin(), t.getDestination(), t.getPrice(),
+                t.getDepartureTime(), t.getArrivalTime(), permittedProviders);
+        
+    }
+    
     public ArrayList<String> permittedProviders() {
         return permittedProviders;
     }

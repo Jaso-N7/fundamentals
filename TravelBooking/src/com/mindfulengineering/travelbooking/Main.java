@@ -1,5 +1,8 @@
 package com.mindfulengineering.travelbooking;
 
+import com.mindfulengineering.travelbooking.bookingProcess.BookingSystem;
+import com.mindfulengineering.travelbooking.bookingProcess.CheapTravelBookingSystem;
+import com.mindfulengineering.travelbooking.bookingProcess.EnjoyableToursBookingSystem;
 import com.mindfulengineering.travelbooking.domain.BusTicket;
 import com.mindfulengineering.travelbooking.domain.PlaneTicket;
 import com.mindfulengineering.travelbooking.domain.TrainTicket;
@@ -13,11 +16,9 @@ import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
 
-/**
- *
- * @author jason
- */
 public class Main {
 
     public static void main(String[] args) throws InvalidTravelDurationException {
@@ -72,7 +73,7 @@ public class Main {
                 LocalDateTime.of(2023, 3, 7, 19, 3),
                 providers);
 
-        ArrayList<TravelTicket> tickets = new ArrayList<>();
+        List<TravelTicket> tickets = new ArrayList<>();
         // HashSet<TravelTicket> tickets = new HashSet<>();
         tickets.add(busTicket);
         tickets.add(busTicket2);
@@ -101,6 +102,18 @@ public class Main {
             System.out.println("Found a bus ticket");
             System.out.println(bt.permittedProviders());
             
+            bt = new BusTicket(foundTicket, providers);
+            
+            System.out.println("\nWorking with Interfaces ---\n");
+            // With an interface, it doesn't matter which is used, the implementation
+            // doesn't change. Uncomment to see the effects
+//            BookingSystem bookingSystem = new EnjoyableToursBookingSystem();
+            BookingSystem bookingSystem = new CheapTravelBookingSystem();
+            
+            bookingSystem.setTravelTicket(bt);
+            bookingSystem.requestBooking();
+            System.out.println("The booking status is " + bookingSystem.getStatus());
+            
         } else if (foundTicket instanceof TrainTicket) {
             
             System.out.println("Found a train ticket");
@@ -111,6 +124,7 @@ public class Main {
             System.out.println("This is a plane ticket");
         }
         
+        System.out.println("");
         try {
 
             PlaneTicket planeTicket = new PlaneTicket(1593L, "MKJP", "MIA",
@@ -123,6 +137,29 @@ public class Main {
         } catch (InvalidTravelDurationException planEx) {
             System.out.println("Plane ticket void: " + planEx.getMessage());
         }
+        
+        System.out.println("\nUsing Java Interfaces with Lists ---");
+        List<Integer> intList1 = new ArrayList<>();
+        intList1.add(1);
+        intList1.add(2);
+        intList1.add(3);
+        intList1.add(4);
+        intList1.add(5);
+        
+        // Alternative shortcut way since JDK 11
+        List<Integer> intList2 = List.of(1, 2, 3, 4, 5);
+        for (Integer integer : intList2) {
+            System.out.println(integer);
+        }
+        System.out.println(intList2.getClass());
+        
+        intList1.add(6);
+        // intList2.add(6); // Immutable, will throw java.lang.UnsupportedOperationException
+        
+        System.out.println("\nBookingSystem " + BookingSystem.getVersion() + '\n');
+        
+        BookingSystem bs = BookingSystem.of(foundTicket);
+        System.out.println(bs);
     }
 
 }

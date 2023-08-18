@@ -31,7 +31,7 @@ public final class ExpressExpenseManagementProcess
     @Override
     public boolean approveClaim(int id, Employee approver) {
         
-        return claim.getTotalAmount() < 500;
+        return claim.getTotalAmount() < 50;
     }
     
 }

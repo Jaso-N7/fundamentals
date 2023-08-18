@@ -1,5 +1,6 @@
 package com.mindfulengineering.expenses;
 
+import com.mindfulengineering.expenses.domain.Employee;
 import com.mindfulengineering.expenses.domain.Employees;
 import com.mindfulengineering.expenses.domain.ExpenseClaim;
 import com.mindfulengineering.expenses.exceptions.EmployeeNotFoundException;
@@ -21,7 +22,6 @@ public class ExpenseManagementSystem {
                           e - register new employee
                           c - register new claim
                           a - approve a claim
-                          f - express claim appoval
                           p - print all employees
                           x - exit""";
 
@@ -70,7 +70,7 @@ public class ExpenseManagementSystem {
 
                         int regId = regularProcess.registerExpenseClaim(claim);
                         expressProcess.registerExpenseClaim(claim);
-                        System.out.println("The claim has been registered with ID " 
+                        System.out.println("The claim has been registered with ID "
                                 + regId);
 
                     } catch (EmployeeNotFoundException ex) {
@@ -83,28 +83,30 @@ public class ExpenseManagementSystem {
                     int cid = scanner.nextInt();
                     scanner.nextLine();
 
-                    System.out.println("Enter approver Id");
+                    System.out.println("Enter employee Id");
                     int eid = scanner.nextInt();
                     scanner.nextLine();
 
                     try {
-                        regularProcess.approveClaim(cid, employees.findById(eid));
-                    } catch (EmployeeNotFoundException enf) {
-                        System.out.println("Invalid approver id");
-                    }
-                }
-                case 'f' -> {
-             
-                    System.out.println("Enter approver Id");
-                    int eid = scanner.nextInt();
-                    scanner.nextLine();
+                        Employee foundEmployee = employees.findById(eid);
 
-                    try {
-                        expressProcess.approveClaim(-1, employees.findById(eid));
+                        System.out.println("r - regular approval\ne - express approval");
+                        String claimType = scanner.nextLine();
+                        
+                        ExpenseManagementProcess process =
+                                claimType.toLowerCase().equals("r") 
+                                ? regularProcess : expressProcess;
+                        
+                        if (process.approveClaim(cid, foundEmployee)) {
+                            System.out.println("Claim was approved");
+                        } else {
+                            System.out.println("Claim was not approved");
+                        }
                     } catch (EmployeeNotFoundException enf) {
                         System.out.println("Invalid approver id");
                     }
                 }
+                
                 case 'p' ->
                     employees.viewEmployees();
                 case 'x' -> {

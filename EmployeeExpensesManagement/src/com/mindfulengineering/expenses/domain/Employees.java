@@ -1,7 +1,10 @@
 package com.mindfulengineering.expenses.domain;
 
 import com.mindfulengineering.expenses.exceptions.EmployeeNotFoundException;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -41,7 +44,10 @@ public class Employees {
 
     public void viewEmployees() {
 
-        for (Employee e : employees.values()) {
+        List<Employee> el = new LinkedList<>(employees.values());
+        Collections.sort(el);
+        
+        for (Employee e : el) {
             System.out.println(e);
         }
 

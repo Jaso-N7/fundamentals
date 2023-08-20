@@ -146,14 +146,14 @@ public class Employee implements Comparable<Employee> {
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 41 * hash + this.id;
-        hash = 41 * hash + Objects.hashCode(this.title);
-        hash = 41 * hash + Objects.hashCode(this.firstName);
-        hash = 41 * hash + Objects.hashCode(this.surname);
-        hash = 41 * hash + Objects.hashCode(this.jobTitle);
-        hash = 41 * hash + Objects.hashCode(this.department);
-        hash = 41 * hash + Objects.hashCode(this.claims);
+        int hash = 3;
+        hash = 23 * hash + this.id;
+        hash = 23 * hash + Objects.hashCode(this.title);
+        hash = 23 * hash + Objects.hashCode(this.firstName);
+        hash = 23 * hash + Objects.hashCode(this.surname);
+        hash = 23 * hash + Objects.hashCode(this.jobTitle);
+        hash = 23 * hash + Objects.hashCode(this.department);
+        hash = 23 * hash + Objects.hashCode(this.claims);
         return hash;
     }
 

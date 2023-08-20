@@ -112,7 +112,7 @@ public class Main {
         System.out.println("\nEmployees sorted by Surname ---\n");
        List<Employee> el = new LinkedList<>(List.of(mac, dalton));
        Collections.sort(el);
-        System.out.println(el);
+       System.out.println(el);
         
     }
 }

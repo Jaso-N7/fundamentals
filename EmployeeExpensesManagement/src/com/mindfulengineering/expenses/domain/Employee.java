@@ -1,6 +1,7 @@
 package com.mindfulengineering.expenses.domain;
 
-import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -16,7 +17,7 @@ public class Employee implements Comparable<Employee> {
     private String surname;
     private String jobTitle;
     private Department department;
-    private final ArrayList<ExpenseClaim> claims = new ArrayList<>();
+    private final Map<Integer, ExpenseClaim> claims = new HashMap<>();
 
     public Employee() { }
     
@@ -93,7 +94,7 @@ public class Employee implements Comparable<Employee> {
      * @param claim 
      */
     public void addClaim(ExpenseClaim claim) {
-        claims.add(claim);
+        claims.put(claim.getId(), claim);
     }
     
     /**
@@ -136,7 +137,7 @@ public class Employee implements Comparable<Employee> {
             sb.append("works in the ").append(department).append(" department");
         }
 
-        for (var claim : claims) {
+        for (var claim : claims.values()) {
             sb.append("\n").append(claim);
         }
         

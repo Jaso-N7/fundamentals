@@ -12,7 +12,7 @@ import java.util.Objects;
  *
  * @author jason
  */
-public final class BusTicket extends TravelTicket {
+public final class BusTicket extends TravelTicket implements Comparable<TravelTicket>{
     
     private ArrayList<String> permittedProviders;
 

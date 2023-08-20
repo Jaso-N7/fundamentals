@@ -15,6 +15,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -90,76 +91,12 @@ public class Main {
 //        for (int i = 0; i < tickets.size(); i++) {
 //            System.out.println(tickets.get(i));
 //        }
+
+        Collections.sort(tickets);
         for (var b : tickets) {
             System.out.println(b);
         }
         
-        TravelTicket foundTicket = tickets.get(2);
-        System.out.println(foundTicket);
-
-        if (foundTicket instanceof BusTicket bt) {
-            
-            System.out.println("Found a bus ticket");
-            System.out.println(bt.permittedProviders());
-            
-            bt = new BusTicket(foundTicket, providers);
-            
-            System.out.println("\nWorking with Interfaces ---\n");
-            // With an interface, it doesn't matter which is used, the implementation
-            // doesn't change. Uncomment to see the effects
-//            BookingSystem bookingSystem = new EnjoyableToursBookingSystem();
-            BookingSystem bookingSystem = new CheapTravelBookingSystem();
-            
-            bookingSystem.setTravelTicket(bt);
-            bookingSystem.requestBooking();
-            System.out.println("The booking status is " + bookingSystem.getStatus());
-            
-        } else if (foundTicket instanceof TrainTicket) {
-            
-            System.out.println("Found a train ticket");
-            TrainTicket tt = (TrainTicket) foundTicket;
-            System.out.println(tt.getCarriageNumber());
-            
-        } else {
-            System.out.println("This is a plane ticket");
-        }
-        
-        System.out.println("");
-        try {
-
-            PlaneTicket planeTicket = new PlaneTicket(1593L, "MKJP", "MIA",
-                    new BigDecimal("350.50"),
-                    LocalDateTime.of(2023, Month.AUGUST, 31, 10, 05),
-                    LocalDateTime.of(2023, Month.AUGUST, 31, 9, 30),
-                    TravelClass.BUSINESS, 36, 1);
-            planeTicket.upgrade();
-
-        } catch (InvalidTravelDurationException planEx) {
-            System.out.println("Plane ticket void: " + planEx.getMessage());
-        }
-        
-        System.out.println("\nUsing Java Interfaces with Lists ---");
-        List<Integer> intList1 = new ArrayList<>();
-        intList1.add(1);
-        intList1.add(2);
-        intList1.add(3);
-        intList1.add(4);
-        intList1.add(5);
-        
-        // Alternative shortcut way since JDK 11
-        List<Integer> intList2 = List.of(1, 2, 3, 4, 5);
-        for (Integer integer : intList2) {
-            System.out.println(integer);
-        }
-        System.out.println(intList2.getClass());
-        
-        intList1.add(6);
-        // intList2.add(6); // Immutable, will throw java.lang.UnsupportedOperationException
-        
-        System.out.println("\nBookingSystem " + BookingSystem.getVersion() + '\n');
-        
-        BookingSystem bs = BookingSystem.of(foundTicket);
-        System.out.println(bs);
     }
 
 }

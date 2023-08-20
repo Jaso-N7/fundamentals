@@ -9,7 +9,8 @@ import java.util.Objects;
  *
  * @author jason
  */
-public final class TrainTicket extends TravelTicket {
+public final class TrainTicket extends TravelTicket 
+        implements Comparable<TravelTicket> {
     
     private Integer carriageNumber, seatNumber;
     private TravelClass travelClass;

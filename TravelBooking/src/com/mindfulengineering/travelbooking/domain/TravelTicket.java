@@ -11,6 +11,7 @@ import java.util.Objects;
  * @author jason
  */
 public sealed abstract class TravelTicket 
+        implements Comparable<TravelTicket>
         permits PlaneTicket, TrainTicket, BusTicket {
     
     private Long bookingRef;
@@ -110,6 +111,11 @@ public sealed abstract class TravelTicket
     
     public void cancel () {
         System.out.println("I am cancelling the ticket");
+    }
+
+    @Override
+    public int compareTo(TravelTicket t) {
+        return bookingRef.compareTo(t.getBookingRef());
     }
     
     @Override

@@ -89,17 +89,23 @@ public class Main {
 
         // Collections.sort(tickets);
         // Collections.sort(tickets, new OriginSortComparator());
-        Collections.sort(tickets, new Comparator<TravelTicket>(){
-            @Override
-            public int compare(TravelTicket t, TravelTicket t1) {
-                return t.getDestination().compareTo(t1.getDestination());
-            }
-        });
-        
+//        var add2Numbers = (int a, int b) -> { return a + b; };
+//        var departureTimeSort = (TravelTicket a, TravelTicket b) -> {
+//            return a.getDepartureTime().compareTo(b.getDepartureTime());
+//        };
+//        Collections.sort(tickets, new Comparator<TravelTicket>() {
+//            @Override
+//            public int compare(TravelTicket t, TravelTicket t1) {
+//                return t.getDestination().compareTo(t1.getDestination());
+//            }
+//        });
+        Collections.sort(tickets, (a, b) -> 
+                a.getDepartureTime().compareTo(b.getDepartureTime()));
+
         for (var b : tickets) {
             System.out.println(b);
         }
-        
+
     }
 
 }

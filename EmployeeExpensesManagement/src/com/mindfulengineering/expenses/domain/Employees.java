@@ -1,7 +1,8 @@
 package com.mindfulengineering.expenses.domain;
 
 import com.mindfulengineering.expenses.exceptions.EmployeeNotFoundException;
-import java.util.HashSet;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -11,7 +12,7 @@ import java.util.Objects;
  */
 public class Employees {
 
-    private final HashSet<Employee> employees = new HashSet<>();
+    private final Map<Integer, Employee> employees = new HashMap<>();
 
     /**
      * Adds an employee
@@ -19,7 +20,7 @@ public class Employees {
      * @param employee
      */
     public void add(Employee employee) {
-        employees.add(employee);
+        employees.put(employee.getId(), employee);
     }
 
     /**
@@ -40,7 +41,7 @@ public class Employees {
 
     public void viewEmployees() {
 
-        for (Employee e : employees) {
+        for (Employee e : employees.values()) {
             System.out.println(e);
         }
 
@@ -56,7 +57,7 @@ public class Employees {
     public Employee findBySurname(String surname)
             throws NullPointerException {
 
-        for (Employee e : employees) {
+        for (Employee e : employees.values()) {
             if (surname.equalsIgnoreCase(e.getSurname())) {
                 return e;
             }
@@ -79,20 +80,15 @@ public class Employees {
 
         Objects.requireNonNull(employeeId, "An employee ID is required.");
 
-        for (Employee e : employees) {
-            if (e.getId() == employeeId) {
-                return e;
-            }
-        }
-
-        return null;
+        return employees.get(employeeId);
+        
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
 
-        for (var e : employees) {
+        for (var e : employees.values()) {
             sb.append(e).append('\n');
         }
         return sb.toString();

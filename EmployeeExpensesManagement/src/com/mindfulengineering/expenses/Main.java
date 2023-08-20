@@ -54,12 +54,9 @@ public class Main {
         
         // Testing EmployeeUtilities.employeeExists
         System.out.println("Does Dalton exist? " + 
-                ( EmployeeUtilities.employeeExists(employees, mac) ? "Yes" : "No" ));
+                ( employees.employeeExists(mac.getId()) ? "Yes" : "No" ));
         
-        String james = EmployeeUtilities
-                .employeeExists(employees, new Employee(666, "Mr.", "Chris", "James",
-                        "Staff", Department.FINANCE)) 
-                ? "Yes" : "No";
+        String james = employees.employeeExists(6_000) ? "Yes" : "No";
         System.out.println("Does James exist? " + james);
         System.out.println("");
         System.out.println(employees);

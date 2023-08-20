@@ -4,8 +4,6 @@
  */
 package com.mindfulengineering.expenses.utilities;
 
-import com.mindfulengineering.expenses.domain.Employee;
-import com.mindfulengineering.expenses.domain.Employees;
 import com.mindfulengineering.expenses.exceptions.InvalidEmployeeIdException;
 import com.mindfulengineering.expenses.exceptions.NameTooShortException;
 import java.util.Objects;
@@ -16,14 +14,7 @@ import java.util.Objects;
  */
 public class EmployeeUtilities { 
     
-    public static boolean employeeExists (Employees emps, Employee emp) {
-        
-        Objects.requireNonNull(emps, "A valid list of Employees must be provided");
-        Objects.requireNonNull(emp, "A valid Employee must be provided");
-        
-        return (emps.findBySurname(emp.getSurname()) != null);
-    }
-    
+      
     /**
      * Returns an Integer object holding the value of the Employee ID.
      * 

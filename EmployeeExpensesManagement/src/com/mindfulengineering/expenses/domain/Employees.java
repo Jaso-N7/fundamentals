@@ -90,6 +90,10 @@ public class Employees {
         
     }
 
+    public boolean employeeExists (int id) {
+        return employees.containsKey(id);
+    }
+    
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();

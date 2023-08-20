@@ -132,6 +132,11 @@ public class Main {
         List<TravelTicket> londonTickets2 = tickets.stream()
                 .filter( t -> t.getOrigin().equals("London"))
                 .collect(Collectors.toList());
+        
+        tickets.stream().map( a -> {
+            a.setPrice(a.getPrice().add(new BigDecimal("20")));
+            return a;
+        }).forEach(System.out::println);
 
     }
 

@@ -85,7 +85,7 @@ public sealed abstract class TravelTicket
         return price;
     }
 
-    protected void setPrice(BigDecimal price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 

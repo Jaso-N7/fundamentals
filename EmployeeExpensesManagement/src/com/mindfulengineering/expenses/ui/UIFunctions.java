@@ -134,21 +134,23 @@ public class UIFunctions {
 
         while (true) {
             
-            System.out.println("Type of expense (q - quit)");
+            System.out.println("Enter the expense item Id");
+            int xid = scanner.nextInt();
+            scanner.nextLine();
+            
+            System.out.println("Enter the expense type (q - quit)");
             String type = scanner.nextLine();
             
             if (type.equalsIgnoreCase("Q")) { break; }
             
             try {
-                et = ExpenseType.valueOf(type);
+                et = ExpenseType.valueOf(type.toUpperCase());
             } catch (IllegalArgumentException | NullPointerException x) {
                 System.out.println("Invalid expense type " + et);
                 continue;
             }
             
-            System.out.println("Enter the expense Id");
-            int xid = scanner.nextInt();
-            scanner.nextLine();
+            
             
             System.out.println("Describe the expense");
             String desc = scanner.nextLine();

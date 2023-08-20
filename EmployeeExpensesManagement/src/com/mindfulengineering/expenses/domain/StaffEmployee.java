@@ -12,7 +12,8 @@ import java.util.Objects;
  * 
  * @author jason
  */
-public final class StaffEmployee extends Employee {
+public final class StaffEmployee extends Employee 
+        implements Comparable<Employee> {
     
     private final String username;
     private final String password;

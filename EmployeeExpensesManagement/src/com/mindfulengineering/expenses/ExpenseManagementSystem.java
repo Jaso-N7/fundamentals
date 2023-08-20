@@ -27,9 +27,9 @@ public class ExpenseManagementSystem {
                           c - register new claim
                           a - approve a claim
                           p - print all employees
-                          r1 - print outstanding claims
-                          r2 - print paid claims
-                          r3 - print all claims
+                          r1 - outstanding expense claims
+                          r2 - paid expense claims
+                          r3 - expense claims above specified amount
                           x - exit""";
     
     private final static Scanner scanner = new Scanner(System.in);
@@ -132,7 +132,7 @@ public class ExpenseManagementSystem {
                 }
                 case "r3" -> {
                     
-                    System.out.println("Show all claims above this amount");
+                    System.out.println("Ente amount");
                     double filter = scanner.nextDouble();
                     scanner.nextLine();
                     

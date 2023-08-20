@@ -144,10 +144,6 @@ public class Employee implements Comparable<Employee> {
         if (department != null) {
             sb.append("works in the ").append(department).append(" department");
         }
-
-        for (var claim : claims.values()) {
-            sb.append("\n").append(claim);
-        }
         
         return sb.toString();
     }

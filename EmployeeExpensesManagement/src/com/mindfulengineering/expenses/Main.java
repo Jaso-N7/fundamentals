@@ -11,6 +11,9 @@ import com.mindfulengineering.expenses.exceptions.EmployeeNotFoundException;
 import com.mindfulengineering.expenses.utilities.EmployeeUtilities;
 import java.time.ZonedDateTime;
 import java.time.ZoneId;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -106,6 +109,10 @@ public class Main {
         employees.viewEmployees();
         
        // employees.add(claimPaid);
+        System.out.println("\nEmployees sorted by Surname ---\n");
+       List<Employee> el = new LinkedList<>(List.of(mac, dalton));
+       Collections.sort(el);
+        System.out.println(el);
         
     }
 }

@@ -36,7 +36,13 @@ public class Employees {
     public void add(ExpenseClaim claim)
             throws EmployeeNotFoundException {
 
-        Employee e = findById(claim.getEmployeeId());
+        int eId = claim.getEmployeeId();
+        
+        if (!employeeExists(eId)) {
+            throw new EmployeeNotFoundException();
+        }
+        
+        Employee e = findById(eId);
         if (e != null) {
             e.addClaim(claim);
         }

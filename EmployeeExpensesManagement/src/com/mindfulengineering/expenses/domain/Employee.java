@@ -8,7 +8,7 @@ import java.util.Objects;
  *
  * @author jason
  */
-public class Employee {
+public class Employee implements Comparable<Employee> {
 
     private int id;
     private String title;
@@ -189,4 +189,9 @@ public class Employee {
         return Objects.equals(this.claims, other.claims);
     }
 
+    @Override
+    public int compareTo(Employee e) {
+        return Integer.valueOf(id).compareTo(e.getId());
+    }
+    
 }

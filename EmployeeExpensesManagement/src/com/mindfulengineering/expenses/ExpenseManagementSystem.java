@@ -8,6 +8,10 @@ import com.mindfulengineering.expenses.processing.ExpenseManagementProcess;
 import com.mindfulengineering.expenses.processing.ExpressExpenseManagementProcess;
 import com.mindfulengineering.expenses.processing.RegularExpenseManagementProcess;
 import com.mindfulengineering.expenses.ui.UIFunctions;
+import com.mindfulengineering.expenses.utilities.ExpenseAnalysis;
+import com.mindfulengineering.expenses.utilities.ExpenseAnalysisTempImpl;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 /**
@@ -15,7 +19,7 @@ import java.util.Scanner;
  * @author jason
  */
 public class ExpenseManagementSystem {
-
+    
     private final static String MENU = """
                           Expense Management System
                           -------------------------
@@ -23,30 +27,34 @@ public class ExpenseManagementSystem {
                           c - register new claim
                           a - approve a claim
                           p - print all employees
+                          po - print outstanding claims
+                          pp - print paid claims
+                          pa - print all claims
                           x - exit""";
-
+    
     private final static Scanner scanner = new Scanner(System.in);
-
+    
     public static void main(String[] args) {
-
+        
         Employees employees = new Employees();
         UIFunctions ui = new UIFunctions();
-
+        ExpenseAnalysis analyse = new ExpenseAnalysisTempImpl();
+        
         ExpenseManagementProcess regularProcess = RegularExpenseManagementProcess.create();
         ExpenseManagementProcess expressProcess = ExpressExpenseManagementProcess.create();
-
-        char choice;
+        
+        String choice;
         do {
             System.out.println(MENU);
-            choice = scanner.nextLine().toLowerCase().charAt(0);
-
+            choice = scanner.nextLine().toLowerCase();
+            
             switch (choice) {
-                case 'e' -> {
+                case "e" -> {
                     boolean keepAsking = true;
                     while (keepAsking) {
                         System.out.println("Is this a staff member? (y / n)");
                         char ynp = scanner.nextLine().toLowerCase().charAt(0);
-
+                        
                         switch (ynp) {
                             case 'y' -> {
                                 employees.add(ui.registerNewEmployee(true));
@@ -62,39 +70,39 @@ public class ExpenseManagementSystem {
                         }
                     }
                 }
-
-                case 'c' -> {
+                
+                case "c" -> {
                     ExpenseClaim claim = ui.registerNewExpenseClaim();
                     try {
                         employees.add(claim);
-
+                        
                         int regId = regularProcess.registerExpenseClaim(claim);
                         expressProcess.registerExpenseClaim(claim);
                         System.out.println("The claim has been registered with ID "
                                 + regId);
-
+                        
                     } catch (EmployeeNotFoundException ex) {
                         System.out.println("There was no employee with ID " + claim.getEmployeeId());
                     }
                 }
-
-                case 'a' -> {
+                
+                case "a" -> {
                     System.out.println("Enter the claim Id");
                     int cid = scanner.nextInt();
                     scanner.nextLine();
-
+                    
                     System.out.println("Enter employee Id");
                     int eid = scanner.nextInt();
                     scanner.nextLine();
-
+                    
                     try {
                         Employee foundEmployee = employees.findById(eid);
-
+                        
                         System.out.println("r - regular approval\ne - express approval");
                         String claimType = scanner.nextLine();
                         
-                        ExpenseManagementProcess process =
-                                claimType.toLowerCase().equals("r") 
+                        ExpenseManagementProcess process
+                                = claimType.toLowerCase().equals("r")
                                 ? regularProcess : expressProcess;
                         
                         if (process.approveClaim(cid, foundEmployee)) {
@@ -107,16 +115,35 @@ public class ExpenseManagementSystem {
                     }
                 }
                 
-                case 'p' ->
+                case "p" ->
                     employees.viewEmployees();
-                case 'x' -> {
-                    break;
+                case "po" ->
+                    analyse.printOutstandingExpenseClaims();
+                case "pp" -> {
+                    System.out.println("Print claims from (yyyy-mm-dd");
+                    String from = scanner.nextLine();
+                    LocalDate fromLD = LocalDate.parse(from, DateTimeFormatter.ISO_DATE);
+                    
+                    System.out.println("Print claims to (yyyy-mm-dd");
+                    String to = scanner.nextLine();
+                    LocalDate toLD = LocalDate.parse(to, DateTimeFormatter.ISO_DATE);
+                    
+                    analyse.printPaidExpenseClaims(fromLD, toLD);
                 }
+                case "pa" -> {
+                    
+                    System.out.println("Show all claims above this amount");
+                    double filter = scanner.nextDouble();
+                    scanner.nextLine();
+                    
+                    analyse.printExpenseClaims(filter);
+                }
+                
                 default ->
                     System.out.println("Invalid choice");
             }
-
-        } while (choice != 'x');
-
+            
+        } while (!choice.equals("x"));
+        
     }
 }

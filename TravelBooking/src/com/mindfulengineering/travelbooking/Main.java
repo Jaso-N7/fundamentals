@@ -10,6 +10,7 @@ import com.mindfulengineering.travelbooking.domain.TravelClass;
 import com.mindfulengineering.travelbooking.domain.TravelTicket;
 
 import com.mindfulengineering.travelbooking.exceptions.InvalidTravelDurationException;
+import com.mindfulengineering.travelbooking.util.OriginSortComparator;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -85,14 +86,9 @@ public class Main {
         tickets.add(busTicket3);
         tickets.add(trainTicket2);
 
-//        System.out.println(tickets);
-//        System.out.println(tickets.get(1)); // Retrieve the second ticket
-//
-//        for (int i = 0; i < tickets.size(); i++) {
-//            System.out.println(tickets.get(i));
-//        }
-
-        Collections.sort(tickets);
+        // Collections.sort(tickets);
+        Collections.sort(tickets, new OriginSortComparator());
+        
         for (var b : tickets) {
             System.out.println(b);
         }

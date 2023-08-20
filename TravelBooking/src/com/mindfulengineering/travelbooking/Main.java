@@ -17,6 +17,7 @@ import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -87,7 +88,13 @@ public class Main {
         tickets.add(trainTicket2);
 
         // Collections.sort(tickets);
-        Collections.sort(tickets, new OriginSortComparator());
+        // Collections.sort(tickets, new OriginSortComparator());
+        Collections.sort(tickets, new Comparator<TravelTicket>(){
+            @Override
+            public int compare(TravelTicket t, TravelTicket t1) {
+                return t.getDestination().compareTo(t1.getDestination());
+            }
+        });
         
         for (var b : tickets) {
             System.out.println(b);

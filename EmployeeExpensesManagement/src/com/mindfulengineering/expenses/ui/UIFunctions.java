@@ -35,7 +35,7 @@ public class UIFunctions {
         Department d = getEmployeeDept();
 
         Employee e = new Employee(eid, title, name[0], name[1], job, d);
-        
+
         if (isStaff) {
 
             System.out.println("Enter username");
@@ -45,7 +45,7 @@ public class UIFunctions {
             String p = scanner.nextLine();
 
             return StaffEmployee.valueOf(e, u, p);
-            
+
         } else {
             return e;
         }
@@ -123,7 +123,7 @@ public class UIFunctions {
 
         List<ExpenseItem> items = new LinkedList<>();
         ExpenseType et = null;
-        
+
         System.out.println("Enter the claim Id");
         int cid = scanner.nextInt();
         scanner.nextLine();
@@ -133,45 +133,47 @@ public class UIFunctions {
         scanner.nextLine();
 
         while (true) {
-            
+
             System.out.println("Enter the expense item Id");
             int xid = scanner.nextInt();
             scanner.nextLine();
-            
-            System.out.println("Enter the expense type (q - quit)");
-            String type = scanner.nextLine();
-            
-            if (type.equalsIgnoreCase("Q")) { break; }
-            
-            try {
-                et = ExpenseType.valueOf(type.toUpperCase());
-            } catch (IllegalArgumentException | NullPointerException x) {
-                System.out.println("Invalid expense type " + et);
-                continue;
+
+            boolean validExpenseType = false;
+            while (!validExpenseType) {
+
+                System.out.println("Enter the expense type");
+                String type = scanner.nextLine();
+
+                try {
+                    et = ExpenseType.valueOf(type.toUpperCase());
+                    validExpenseType = true;
+                } catch (IllegalArgumentException | NullPointerException x) {
+                    System.out.println("Invalid expense type " + et);
+                }
             }
-            
-            
-            
-            System.out.println("Describe the expense");
+
+            System.out.println("Enter the description");
             String desc = scanner.nextLine();
-            
-            System.out.println("How much did it cost");
+
+            System.out.println("Enter the amount");
             double amount = scanner.nextDouble();
             scanner.nextLine();
-            
+
             items.add(ExpenseItem.create(xid, cid, et, desc, amount));
-            
+
             System.out.println("Do you wish to add more (y/n)?");
             String ans = scanner.nextLine();
-            
-            if (ans.equalsIgnoreCase("N")) { break; }
+
+            if (ans.equalsIgnoreCase("N")) {
+                break;
+            }
         }
-        
+
         if (items.isEmpty()) {
             System.out.println("You need to add at least one(1) expense type...");
             return registerNewExpenseClaim();
         }
-        
+
         return new ExpenseClaim.Builder(cid, eid, ZonedDateTime.now())
                 .expense(items)
                 .build();

@@ -58,7 +58,7 @@ public final class BusTicket extends TravelTicket implements Comparable<TravelTi
 
     @Override
     public String toString() {
-        return permittedProviders + " Bus Ticket " + super.toString() + '\n';
+        return permittedProviders + " Bus Ticket " + super.toString();
     }
 
     @Override

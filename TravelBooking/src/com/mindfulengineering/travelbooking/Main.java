@@ -22,6 +22,7 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.function.BiFunction;
+import java.util.stream.Collectors;
 
 public class Main {
 
@@ -117,6 +118,20 @@ public class Main {
         tickets.stream()
                 .filter( a -> a.getOrigin().equals("London") )
                 .forEach( System.out::println );
+        
+        System.out.println("\nJDK17 way of converting toList() ---\n");
+        List<TravelTicket> londonTickets = tickets.stream()
+                .filter( t -> t.getOrigin().equals("London"))
+                .toList();
+        
+        for (TravelTicket londonTicket : londonTickets) {
+            System.out.println(londonTicket);
+        }
+        
+        System.out.println("\nPre JDK17 way of converting toList() ---\n");
+        List<TravelTicket> londonTickets2 = tickets.stream()
+                .filter( t -> t.getOrigin().equals("London"))
+                .collect(Collectors.toList());
 
     }
 

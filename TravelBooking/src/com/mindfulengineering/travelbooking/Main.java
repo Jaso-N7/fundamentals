@@ -21,6 +21,7 @@ import java.util.Comparator;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.function.BiFunction;
 
 public class Main {
 
@@ -90,21 +91,32 @@ public class Main {
         // Collections.sort(tickets);
         // Collections.sort(tickets, new OriginSortComparator());
 //        var add2Numbers = (int a, int b) -> { return a + b; };
-//        var departureTimeSort = (TravelTicket a, TravelTicket b) -> {
-//            return a.getDepartureTime().compareTo(b.getDepartureTime());
-//        };
+
+        BiFunction<TravelTicket, TravelTicket, Integer> departureTimeSort
+                = (TravelTicket a, TravelTicket b) -> {
+                    return a.getDepartureTime().compareTo(b.getDepartureTime());
+                };
+        
 //        Collections.sort(tickets, new Comparator<TravelTicket>() {
 //            @Override
 //            public int compare(TravelTicket t, TravelTicket t1) {
 //                return t.getDestination().compareTo(t1.getDestination());
 //            }
 //        });
-        Collections.sort(tickets, (a, b) -> 
-                a.getDepartureTime().compareTo(b.getDepartureTime()));
+        Collections.sort(tickets, (a, b)
+                -> a.getDepartureTime().compareTo(b.getDepartureTime()));
 
         for (var b : tickets) {
             System.out.println(b);
         }
+        
+        tickets.stream().forEach( System.out::println );
+        tickets.stream().forEach( a -> System.out.println(a) );
+        
+        System.out.println("-".repeat(20));
+        tickets.stream()
+                .filter( a -> a.getOrigin().equals("London") )
+                .forEach( System.out::println );
 
     }
 

@@ -27,9 +27,9 @@ public class ExpenseManagementSystem {
                           c - register new claim
                           a - approve a claim
                           p - print all employees
-                          po - print outstanding claims
-                          pp - print paid claims
-                          pa - print all claims
+                          r1 - print outstanding claims
+                          r2 - print paid claims
+                          r3 - print all claims
                           x - exit""";
     
     private final static Scanner scanner = new Scanner(System.in);
@@ -117,20 +117,20 @@ public class ExpenseManagementSystem {
                 
                 case "p" ->
                     employees.viewEmployees();
-                case "po" ->
+                case "r1" ->
                     analyse.printOutstandingExpenseClaims();
-                case "pp" -> {
-                    System.out.println("Print claims from (yyyy-mm-dd");
+                case "r2" -> {
+                    System.out.println("Enter date from (yyyy-mm-dd)");
                     String from = scanner.nextLine();
                     LocalDate fromLD = LocalDate.parse(from, DateTimeFormatter.ISO_DATE);
                     
-                    System.out.println("Print claims to (yyyy-mm-dd");
+                    System.out.println("Enter date to (yyyy-mm-dd)");
                     String to = scanner.nextLine();
                     LocalDate toLD = LocalDate.parse(to, DateTimeFormatter.ISO_DATE);
                     
                     analyse.printPaidExpenseClaims(fromLD, toLD);
                 }
-                case "pa" -> {
+                case "r3" -> {
                     
                     System.out.println("Show all claims above this amount");
                     double filter = scanner.nextDouble();

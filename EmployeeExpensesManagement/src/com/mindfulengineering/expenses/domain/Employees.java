@@ -18,6 +18,15 @@ public class Employees {
     private final Map<Integer, Employee> employees = new HashMap<>();
 
     /**
+     * Get all the employees that have been registered.
+     * 
+     * @return A List of Employee(s) 
+     */
+    public List<Employee> getEmployees () {
+        return employees.values().stream().toList();
+    }
+    
+    /**
      * Adds an employee
      *
      * @param employee

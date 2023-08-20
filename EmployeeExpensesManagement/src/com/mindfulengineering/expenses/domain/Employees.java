@@ -59,6 +59,7 @@ public class Employees {
             for (ExpenseClaim ec : e.getClaims().values()) {
                 System.out.println(ec);
                 ec.viewExpenseItems();
+                System.out.println("Total value of claim " + ec.getTotalAmount());
             }
         }
 

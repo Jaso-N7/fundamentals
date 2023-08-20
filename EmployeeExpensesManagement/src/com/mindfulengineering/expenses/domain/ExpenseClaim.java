@@ -2,18 +2,21 @@ package com.mindfulengineering.expenses.domain;
 
 
 import java.time.*;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Objects;
 
 /**
  * An ExpenseClaim is a Class of:
  * 
- * ExpenseClaim ec = new ExpenseClaim.Builder(ExpenseClaimId, EmployeeID, ZonedDateTime, double)
+ * ExpenseClaim ec = new ExpenseClaim.Builder(ExpenseClaimId, EmployeeID, ZonedDateTime)
+ *                   .expense(ExpenseItem)
  *                   .approved(Boolean)
  *                   .paid(Boolean)
  *                   .build()
  * 
- * INTERPRETATION: The date of each claim, amount spent, and reason
- * WHERE: approved and paid are optional
+ * INTERPRETATION: The date of each claim and the reason (the expense item)
+ * WHERE: expense, approved and paid are optional
  *
  * @author jason
  */
@@ -22,7 +25,7 @@ public class ExpenseClaim {
     private final int id;
     private final int employeeId;
     private final ZonedDateTime dateOfClaim;
-    private final double totalAmount;
+    private final List<ExpenseItem> expenseItems;
     private final boolean approved;
     private final boolean paid;
 
@@ -39,9 +42,27 @@ public class ExpenseClaim {
     }
 
     public double getTotalAmount() {
+        double totalAmount = 0.0D;
+        
+        for (ExpenseItem i : expenseItems) {
+            totalAmount += i.getAmount();
+        }
+        
         return totalAmount;
     }
 
+    /**
+     * Prints out the ExpenseItems to the console
+     */
+    public void viewExpenseItems() {
+        StringBuilder sb = new StringBuilder();
+        for (ExpenseItem ei : expenseItems) {
+            sb.append(ei).append('\n');
+        }
+        
+        System.out.println(sb);
+    }
+    
     public boolean isApproved() {
         return approved;
     }
@@ -57,7 +78,8 @@ public class ExpenseClaim {
      */
     public ExpenseClaim approved(boolean isApproved){
         
-        return new ExpenseClaim.Builder(id, employeeId, dateOfClaim, totalAmount)
+        return new ExpenseClaim.Builder(id, employeeId, dateOfClaim)
+                .expense(expenseItems)
                 .approved(isApproved)
                 .paid(this.paid)
                 .build();
@@ -69,7 +91,8 @@ public class ExpenseClaim {
      * @return A new ExpenseClaim object with the paid status set.
      */
     public ExpenseClaim paid(boolean isPaid) {
-        return new ExpenseClaim.Builder(id, employeeId, dateOfClaim, totalAmount)
+        return new ExpenseClaim.Builder(id, employeeId, dateOfClaim)
+                .expense(expenseItems)
                 .approved(this.approved)
                 .paid(isPaid)
                 .build();
@@ -81,19 +104,17 @@ public class ExpenseClaim {
         private final int id;
         private final int employeeId;
         private final ZonedDateTime dateOfClaim;
-        private final double totalAmount;
 
         // Optional parameters - initialized to default
+        private List<ExpenseItem> expenseItems = new LinkedList<>();
         private boolean approved = false;
         private boolean paid = false;
 
         public Builder(int id, int employeeId,
-                ZonedDateTime dateOfClaim,
-                double totalAmount) {
+                ZonedDateTime dateOfClaim) {
             this.id = id;
             this.employeeId = employeeId;
             this.dateOfClaim = dateOfClaim;
-            this.totalAmount = totalAmount;
         }
 
         public Builder approved(boolean isApproved) {
@@ -110,6 +131,22 @@ public class ExpenseClaim {
             }
            return this;
         }
+        
+        /**
+         * Add an ExpenseItem to the ExpenseClaim
+         * 
+         * @param item
+         * @return A Builder object
+         */
+        public Builder expense(ExpenseItem item) {
+            expenseItems.add(item);
+            return this;
+        }
+        
+        public Builder expense(List<ExpenseItem> items) {
+            expenseItems = new LinkedList<>(items);
+            return this;
+        }
 
         public ExpenseClaim build() {
             return new ExpenseClaim(this);
@@ -120,30 +157,29 @@ public class ExpenseClaim {
         id = builder.id;
         employeeId = builder.employeeId;
         dateOfClaim = builder.dateOfClaim;
-        totalAmount = builder.totalAmount;
         approved = builder.approved;
         paid = builder.paid;
+        expenseItems = builder.expenseItems;
     }
 
     @Override
     public String toString() {
         return String
-                .format("ExpenseClaim %d for employee %d, dated %s, totalling $%.2f,%n%s & %s%n",
+                .format("ExpenseClaim %d for employee %d, dated %s, %s & %s%n",
                         id, employeeId, dateOfClaim.toLocalDate(), 
-                        totalAmount, 
                         (approved ? "has been approved" : "has not been approved"), 
                         (paid ? "has been paid": "has not been paid"));
     }
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 83 * hash + this.id;
-        hash = 83 * hash + this.employeeId;
-        hash = 83 * hash + Objects.hashCode(this.dateOfClaim);
-        hash = 83 * hash + (int) (Double.doubleToLongBits(this.totalAmount) ^ (Double.doubleToLongBits(this.totalAmount) >>> 32));
-        hash = 83 * hash + (this.approved ? 1 : 0);
-        hash = 83 * hash + (this.paid ? 1 : 0);
+        int hash = 3;
+        hash = 19 * hash + this.id;
+        hash = 19 * hash + this.employeeId;
+        hash = 19 * hash + Objects.hashCode(this.dateOfClaim);
+        hash = 19 * hash + Objects.hashCode(this.expenseItems);
+        hash = 19 * hash + (this.approved ? 1 : 0);
+        hash = 19 * hash + (this.paid ? 1 : 0);
         return hash;
     }
 
@@ -165,16 +201,18 @@ public class ExpenseClaim {
         if (this.employeeId != other.employeeId) {
             return false;
         }
-        if (Double.doubleToLongBits(this.totalAmount) != Double.doubleToLongBits(other.totalAmount)) {
-            return false;
-        }
         if (this.approved != other.approved) {
             return false;
         }
         if (this.paid != other.paid) {
             return false;
         }
-        return Objects.equals(this.dateOfClaim, other.dateOfClaim);
+        if (!Objects.equals(this.dateOfClaim, other.dateOfClaim)) {
+            return false;
+        }
+        return Objects.equals(this.expenseItems, other.expenseItems);
     }
+
+    
     
 }

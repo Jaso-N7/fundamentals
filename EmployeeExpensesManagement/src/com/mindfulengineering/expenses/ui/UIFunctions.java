@@ -131,7 +131,7 @@ public class UIFunctions {
         Double amount = scanner.nextDouble();
         scanner.nextLine();
 
-        return new ExpenseClaim.Builder(cid, eid, ZonedDateTime.now(), amount)
+        return new ExpenseClaim.Builder(cid, eid, ZonedDateTime.now())
                 .build();
     }
 }

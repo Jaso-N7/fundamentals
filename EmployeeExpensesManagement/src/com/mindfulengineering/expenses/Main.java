@@ -8,13 +8,11 @@ import com.mindfulengineering.expenses.domain.Employee;
 import com.mindfulengineering.expenses.domain.ExpenseType;
 import com.mindfulengineering.expenses.domain.StaffEmployee;
 import com.mindfulengineering.expenses.exceptions.EmployeeNotFoundException;
-import com.mindfulengineering.expenses.utilities.EmployeeUtilities;
 import java.time.ZonedDateTime;
 import java.time.ZoneId;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Random;
 
 /**
  *
@@ -65,7 +63,7 @@ public class Main {
         System.out.println("\nTesting Expense Claims ---");
         ExpenseClaim expenseClaim = 
                 new ExpenseClaim.Builder(1_001, mac.getId(),
-                        ZonedDateTime.now(ZoneId.of("Jamaica")), 5_153.58)
+                        ZonedDateTime.now(ZoneId.of("Jamaica")))
                 .build();
         System.out.println("New expense claim for employee ID: " + expenseClaim.getId());
         System.out.println("Attempting to pay for the expense:");

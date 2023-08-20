@@ -4,6 +4,8 @@ import com.mindfulengineering.expenses.domain.*;
 import com.mindfulengineering.expenses.exceptions.*;
 import com.mindfulengineering.expenses.utilities.EmployeeUtilities;
 import java.time.ZonedDateTime;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -119,6 +121,9 @@ public class UIFunctions {
 
     public ExpenseClaim registerNewExpenseClaim() {
 
+        List<ExpenseItem> items = new LinkedList<>();
+        ExpenseType et = null;
+        
         System.out.println("Enter the claim Id");
         int cid = scanner.nextInt();
         scanner.nextLine();
@@ -127,11 +132,46 @@ public class UIFunctions {
         int eid = scanner.nextInt();
         scanner.nextLine();
 
-        System.out.println("Enter the amount");
-        Double amount = scanner.nextDouble();
-        scanner.nextLine();
-
+        while (true) {
+            
+            System.out.println("Type of expense (q - quit)");
+            String type = scanner.nextLine();
+            
+            if (type.equalsIgnoreCase("Q")) { break; }
+            
+            try {
+                et = ExpenseType.valueOf(type);
+            } catch (IllegalArgumentException | NullPointerException x) {
+                System.out.println("Invalid expense type " + et);
+                continue;
+            }
+            
+            System.out.println("Enter the expense Id");
+            int xid = scanner.nextInt();
+            scanner.nextLine();
+            
+            System.out.println("Describe the expense");
+            String desc = scanner.nextLine();
+            
+            System.out.println("How much did it cost");
+            double amount = scanner.nextDouble();
+            scanner.nextLine();
+            
+            items.add(ExpenseItem.create(xid, cid, et, desc, amount));
+            
+            System.out.println("Do you wish to add more (y/n)?");
+            String ans = scanner.nextLine();
+            
+            if (ans.equalsIgnoreCase("N")) { break; }
+        }
+        
+        if (items.isEmpty()) {
+            System.out.println("You need to add at least one(1) expense type...");
+            return registerNewExpenseClaim();
+        }
+        
         return new ExpenseClaim.Builder(cid, eid, ZonedDateTime.now())
+                .expense(items)
                 .build();
     }
 }

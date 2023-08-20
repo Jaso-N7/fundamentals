@@ -55,6 +55,11 @@ public class Employees {
         
         for (Employee e : el) {
             System.out.println(e);
+            
+            for (ExpenseClaim ec : e.getClaims().values()) {
+                System.out.println(ec);
+                ec.viewExpenseItems();
+            }
         }
 
     }

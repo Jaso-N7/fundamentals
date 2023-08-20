@@ -98,6 +98,14 @@ public class Employee implements Comparable<Employee> {
     }
     
     /**
+     * Retrieves the ExpenseClaim(s) for this Employee
+     * @return A Map of the ExpenseClaim(s)
+     */
+    public Map<Integer, ExpenseClaim> getClaims () {
+        return new HashMap<>(claims);
+    }
+    
+    /**
      *
      * @return The name used for mailing
      */

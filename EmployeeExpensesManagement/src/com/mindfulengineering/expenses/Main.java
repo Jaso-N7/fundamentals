@@ -1,5 +1,7 @@
 package com.mindfulengineering.expenses;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mindfulengineering.expenses.domain.Department;
 import com.mindfulengineering.expenses.domain.ExpenseClaim;
 import com.mindfulengineering.expenses.domain.ExpenseItem;
@@ -19,7 +21,7 @@ import java.util.List;
  * @author jason
  */
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws JsonProcessingException {
         
         Employee mac = new Employee();
         mac.setId(1);
@@ -88,26 +90,13 @@ public class Main {
         System.out.println(mac == mac);
         System.out.println(mac.getClass());
         
-        // Testing if employee exists
-        System.out.println("\nTesting for employees existence ---");
-        int rand = (int) (Math.random() * 5); 
-        try {
-            System.out.println(employees.findById(rand));
-        } catch (EmployeeNotFoundException enf) {
-            System.out.println("Employee " + rand + " not found");
-        }
+        System.out.println(mac);
         
-        System.out.println("Testing Staff ---");
-        StaffEmployee staff = StaffEmployee.valueOf(dalton, "dalton", "The-Big-Cheese!");
-        employees.add(staff);
-        //System.out.println(staff);
-        employees.viewEmployees();
+        ObjectMapper objMapper = new ObjectMapper();
+        String employeeToJSON = objMapper.writeValueAsString(mac);
+        System.out.println(employeeToJSON);
         
-       // employees.add(claimPaid);
-        System.out.println("\nEmployees sorted by Surname ---\n");
-       List<Employee> el = new LinkedList<>(List.of(mac, dalton));
-       Collections.sort(el);
-       System.out.println(el);
-        
+        Employee employeeFromJSON = objMapper.readValue(employeeToJSON, Employee.class);
+        System.out.println(employeeFromJSON);
     }
 }

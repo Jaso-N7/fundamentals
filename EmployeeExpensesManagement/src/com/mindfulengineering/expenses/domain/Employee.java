@@ -1,5 +1,6 @@
 package com.mindfulengineering.expenses.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -9,6 +10,7 @@ import java.util.Objects;
  *
  * @author jason
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Employee implements Comparable<Employee> {
 
     private int id;

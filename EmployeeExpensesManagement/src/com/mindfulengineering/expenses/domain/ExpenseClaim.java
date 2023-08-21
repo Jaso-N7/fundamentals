@@ -1,6 +1,5 @@
 package com.mindfulengineering.expenses.domain;
 
-
 import java.time.*;
 import java.util.LinkedList;
 import java.util.List;
@@ -212,7 +211,5 @@ public class ExpenseClaim {
         }
         return Objects.equals(this.expenseItems, other.expenseItems);
     }
-
-    
     
 }

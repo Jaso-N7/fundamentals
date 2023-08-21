@@ -19,13 +19,16 @@ public class Employees {
 
     /**
      * Get all the employees that have been registered.
-     * 
-     * @return A List of Employee(s) 
+     *
+     * @return A List of Employee(s)
      */
-    public List<Employee> getEmployees () {
+    public List<Employee> getEmployees() {
+        // Either way works
+        // return new LinkedList<>(employees.values());  The right way to return a possibly empty collection
+
         return employees.values().stream().toList();
     }
-    
+
     /**
      * Adds an employee
      *
@@ -46,11 +49,11 @@ public class Employees {
             throws EmployeeNotFoundException {
 
         int eId = claim.getEmployeeId();
-        
+
         if (!employeeExists(eId)) {
             throw new EmployeeNotFoundException();
         }
-        
+
         Employee e = findById(eId);
         if (e != null) {
             e.addClaim(claim);
@@ -61,10 +64,10 @@ public class Employees {
 
         List<Employee> el = new LinkedList<>(employees.values());
         Collections.sort(el);
-        
+
         for (Employee e : el) {
             System.out.println(e);
-            
+
             for (ExpenseClaim ec : e.getClaims().values()) {
                 System.out.println(ec);
                 ec.viewExpenseItems();
@@ -108,13 +111,13 @@ public class Employees {
         Objects.requireNonNull(employeeId, "An employee ID is required.");
 
         return employees.get(employeeId);
-        
+
     }
 
-    public boolean employeeExists (int id) {
+    public boolean employeeExists(int id) {
         return employees.containsKey(id);
     }
-    
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();

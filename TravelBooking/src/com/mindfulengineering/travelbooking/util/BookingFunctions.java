@@ -1,4 +1,4 @@
-package util;
+package com.mindfulengineering.travelbooking.util;
 
 import com.mindfulengineering.travelbooking.domain.BusTicket;
 import com.mindfulengineering.travelbooking.domain.TravelTicket;

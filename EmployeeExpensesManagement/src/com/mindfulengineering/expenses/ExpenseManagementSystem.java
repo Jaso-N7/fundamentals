@@ -38,7 +38,7 @@ public class ExpenseManagementSystem {
         
         Employees employees = new Employees();
         UIFunctions ui = new UIFunctions();
-        ExpenseAnalysis analyse = new ExpenseAnalysisTempImpl();
+        ExpenseAnalysis analyse = new ExpenseAnalysisTempImpl(employees);
         
         ExpenseManagementProcess regularProcess = RegularExpenseManagementProcess.create();
         ExpenseManagementProcess expressProcess = ExpressExpenseManagementProcess.create();

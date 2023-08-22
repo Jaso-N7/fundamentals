@@ -2,16 +2,10 @@ package com.mindfulengineering.expenses;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mindfulengineering.expenses.domain.Department;
-import com.mindfulengineering.expenses.domain.ExpenseClaim;
-import com.mindfulengineering.expenses.domain.ExpenseItem;
-import com.mindfulengineering.expenses.domain.Employees;
-import com.mindfulengineering.expenses.domain.Employee;
-import com.mindfulengineering.expenses.domain.ExpenseType;
-import com.mindfulengineering.expenses.domain.StaffEmployee;
+import com.mindfulengineering.expenses.domain.*;
 import com.mindfulengineering.expenses.exceptions.EmployeeNotFoundException;
-import java.time.ZonedDateTime;
-import java.time.ZoneId;
+import java.sql.*;
+import java.time.*;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -21,7 +15,10 @@ import java.util.List;
  * @author jason
  */
 public class Main {
-    public static void main(String[] args) throws JsonProcessingException {
+    public static void main(String[] args) 
+            throws JsonProcessingException, 
+            ClassNotFoundException, 
+            SQLException {
         
         Employee mac = new Employee();
         mac.setId(1);
@@ -98,5 +95,20 @@ public class Main {
         
         Employee employeeFromJSON = objMapper.readValue(employeeToJSON, Employee.class);
         System.out.println(employeeFromJSON);
+        
+        Class.forName("org.h2.Driver");
+        Connection cnx = DriverManager.getConnection("jdbc:h2:./customerdata",
+                "sa", "");
+        Statement stm = cnx.createStatement();
+        // Cannot run multiple times, as the table and data will already exist
+        //stm.executeUpdate("CREATE TABLE customer (id INTEGER, name VARCHAR(255), age INTEGER, PRIMARY KEY(id))");
+        //stm.executeUpdate("INSERT INTO customer (id, name, age) VALUES (1, 'Matt', 21");
+        ResultSet rs = stm.executeQuery("SELECT * FROM customer");
+        
+        while (rs.next()) {            
+            System.out.println(rs.getInt("id"));
+            System.out.println(rs.getString("name"));
+        }
+        cnx.close();
     }
 }

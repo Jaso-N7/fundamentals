@@ -24,10 +24,10 @@ public class SetupDatbase {
         
         Class.forName("org.h2.Driver");
         try (Connection cxn = DriverManager.getConnection(h2db, "sa", "")) {
-        
+
             Statement stm = cxn.createStatement();
             stm.executeUpdate(CREATE_QUERY);
-            
+
         } catch (SQLException sqlx) {
             System.out.println("Unable to connect to the expenses db");
         }

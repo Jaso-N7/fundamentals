@@ -36,7 +36,7 @@ public class Main {
         dalton.setFirstName("Johnny");
         dalton.setSurname("Dalton");
 
-        Employees employees = new Employees();
+        EmployeesInMemoryImpl employees = new EmployeesInMemoryImpl();
         employees.add(mac);
         employees.add(dalton);
         employees.add(new Employee(3, "Mrs.", "Susan", "Brown",

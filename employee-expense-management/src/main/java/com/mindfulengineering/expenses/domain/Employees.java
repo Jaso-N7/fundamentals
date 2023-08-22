@@ -54,8 +54,6 @@ public interface Employees {
      */
     List<Employee> getEmployees();
 
-    String toString();
-
     void viewEmployees();
     
 }

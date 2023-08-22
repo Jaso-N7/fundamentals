@@ -2,17 +2,9 @@ package com.mindfulengineering.tests.expenses;
 
 import com.mindfulengineering.expenses.exceptions.InvalidEmployeeIdException;
 import com.mindfulengineering.expenses.utilities.EmployeeUtilities;
-/* Using JUnit4
-import org.junit.Test;
-import org.junit.*;
-import static org.junit.Assert.*;
-*/
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
 
-
-/**
- *
- * @author jason
- */
 public class SampleTests {
 
     public SampleTests() {
@@ -24,7 +16,7 @@ public class SampleTests {
         int a = 4, b = 8;
         int total = a + b;
 
-        Assert.assertEquals(12, total);
+        assertEquals(12, total);
     }
 
     @Test
@@ -38,11 +30,11 @@ public class SampleTests {
     @Test
     public void validateEmployeeIdException() {
         
-        assertThrows("InvalidEmployeeIdException was not thrown from validateEmployeeId", 
+        assertThrows(
                 InvalidEmployeeIdException.class, () -> {
             int result = EmployeeUtilities.validateEmployeeId("hello");
         });
         
-
+//        fail("InvalidEmployeeIdException was not thrown from validateEmployeeId");
     }
 }

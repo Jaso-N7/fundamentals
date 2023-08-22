@@ -174,8 +174,8 @@ public class EmployeesDatabaseImpl implements Employees {
                         new ExpenseClaim.Builder(rs.getInt("id"),
                                 rs.getInt("employeeId"),
                                 ZonedDateTime.parse(rs.getString("dateOfClaim")))
-                                .approved((rs.getInt("approved") == 1))
-                                .paid((rs.getInt("paid") == 1))
+                                .approved(rs.getBoolean("approved"))
+                                .paid(rs.getBoolean("paid"))
                                 .build());
             }
             

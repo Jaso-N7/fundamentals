@@ -2,9 +2,12 @@ package com.mindfulengineering.tests.expenses;
 
 import com.mindfulengineering.expenses.exceptions.InvalidEmployeeIdException;
 import com.mindfulengineering.expenses.utilities.EmployeeUtilities;
+/* Using JUnit4
 import org.junit.Test;
 import org.junit.*;
 import static org.junit.Assert.*;
+*/
+
 
 /**
  *

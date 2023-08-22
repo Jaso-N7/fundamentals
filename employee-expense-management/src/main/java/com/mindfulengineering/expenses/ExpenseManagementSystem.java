@@ -5,6 +5,7 @@ import com.mindfulengineering.expenses.exceptions.EmployeeNotFoundException;
 import com.mindfulengineering.expenses.processing.*;
 import com.mindfulengineering.expenses.ui.UIFunctions;
 import com.mindfulengineering.expenses.utilities.*;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
@@ -29,7 +30,7 @@ public class ExpenseManagementSystem {
     
     private final static Scanner scanner = new Scanner(System.in);
     
-    public static void main(String[] args) throws ClassNotFoundException {
+    public static void main(String[] args) throws ClassNotFoundException, SQLException {
         
         Employees employees = new EmployeesDatabaseImpl(); //new EmployeesInMemoryImpl();
         UIFunctions ui = new UIFunctions();

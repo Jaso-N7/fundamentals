@@ -49,6 +49,14 @@ public class ExpenseClaim {
         
         return totalAmount;
     }
+    
+    /**
+     * Gets all the ExpenseItems attached to this ExpenseClaim
+     * @return List of ExpenseItems
+     */
+    public List<ExpenseItem> expenseItems () {
+        return new LinkedList<>(expenseItems);
+    }
 
     /**
      * Prints out the ExpenseItems to the console

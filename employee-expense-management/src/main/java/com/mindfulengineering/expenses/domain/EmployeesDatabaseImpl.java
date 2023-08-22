@@ -1,20 +1,15 @@
 package com.mindfulengineering.expenses.domain;
 
 import com.mindfulengineering.expenses.exceptions.EmployeeNotFoundException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
+import java.sql.*;
+import java.util.*;
 
 public class EmployeesDatabaseImpl implements Employees {
 
     private final String h2db;
     
-    public EmployeesDatabaseImpl() throws ClassNotFoundException {
+    public EmployeesDatabaseImpl() 
+            throws ClassNotFoundException, SQLException {
         Class.forName("org.h2.Driver");
         h2db = "jdbc:h2:./expenses";
     }
@@ -41,7 +36,29 @@ public class EmployeesDatabaseImpl implements Employees {
 
     @Override
     public void add(ExpenseClaim claim) throws EmployeeNotFoundException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        
+        String insertClaim = "INSERT INTO expenseclaims (id, employeeId, dateOfClaim, approved, paid) ",
+                insertItem = "INSERT INTO expenseitems (id, claimId, expenseType, description, amount) ";
+                
+        try (Connection cxn = DriverManager.getConnection(h2db, "sa", "")) {
+            Statement stm = cxn.createStatement();
+            stm.executeUpdate(String.format("%s VALUES(%d, %d, '%s', %d, %d)",
+                    insertClaim,
+                    claim.getId(), claim.getEmployeeId(),
+                    claim.getDateOfClaim(),
+                    claim.isApproved() ? 1 : 0, 
+                    claim.isPaid() ? 1 : 0));
+            
+            for (ExpenseItem item : claim.expenseItems()) {
+                stm.executeUpdate(String.format("%s VALUES (%d, %d, '%s', '%s', %f)",
+                        insertItem,
+                        item.getId(), item.getClaimId(), item.getExpenseType(),
+                        item.getDescription(), item.getAmount()));
+            }
+            
+        } catch (SQLException t) {
+            throw new EmployeeNotFoundException();
+        }
     }
 
     @Override

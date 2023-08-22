@@ -3,8 +3,11 @@ package com.mindfulengineering.expenses.domain;
 import com.mindfulengineering.expenses.exceptions.EmployeeNotFoundException;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
 public class EmployeesDatabaseImpl implements Employees {
@@ -63,7 +66,38 @@ public class EmployeesDatabaseImpl implements Employees {
 
     @Override
     public void viewEmployees() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        
+        List<Employee> el = new LinkedList<>();
+        
+        try (Connection cxn = DriverManager.getConnection(h2db, "sa", "")) {
+
+            Statement stm = cxn.createStatement();
+            ResultSet rs = stm.executeQuery("SELECT * FROM employees");
+            
+            while (rs.next()) {
+                el.add(new Employee(rs.getInt("id"),
+                        rs.getString("title"), rs.getString("firstName"), 
+                        rs.getString("surname"), rs.getString("jobTitle"), 
+                        Department.valueOf(rs.getString("department").toUpperCase())));
+            }
+
+        } catch (SQLException sqlx) {
+            System.out.println("There was a problem connecting to the database");
+            throw new RuntimeException(sqlx);
+        }
+        
+        Collections.sort(el);
+        
+        for (Employee e : el) {
+            System.out.println(e);
+
+            for (ExpenseClaim ec : e.getClaims().values()) {
+                System.out.println(ec);
+                ec.viewExpenseItems();
+                System.out.println("Total value of claim " + ec.getTotalAmount());
+            }
+        }
+        
     }
     
 }

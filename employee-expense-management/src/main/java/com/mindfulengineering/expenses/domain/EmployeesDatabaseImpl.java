@@ -65,17 +65,11 @@ public class EmployeesDatabaseImpl implements Employees {
     @Override
     public boolean employeeExists(int id) {
 
-        try (Connection cn = DriverManager.getConnection(h2db, "sa", "")) {
-            Statement st = cn.createStatement();
-            ResultSet rs = st.executeQuery("SELECT * FROM employees WHERE id = " + id);
-
-            return rs.next();
-
-        } catch (SQLException sqlx) {
-            System.out.println("Unable to determine if employee exists");
+        try {
+            return findById(id) instanceof Employee;
+        } catch (EmployeeNotFoundException ex) {
+            return false;
         }
-
-        return false;
     }
 
     @Override
@@ -161,6 +155,12 @@ public class EmployeesDatabaseImpl implements Employees {
 
     }
     
+    private List<ExpenseItem> getExpenseItemsForClaim(int claimId) {
+        List<ExpenseItem> items = new LinkedList<>();
+        
+        return items;
+    }
+    
     private List<ExpenseClaim> getClaims (int employeeId) {
         
         List<ExpenseClaim> claims = new LinkedList<>();
@@ -174,6 +174,7 @@ public class EmployeesDatabaseImpl implements Employees {
                         new ExpenseClaim.Builder(rs.getInt("id"),
                                 rs.getInt("employeeId"),
                                 ZonedDateTime.parse(rs.getString("dateOfClaim")))
+                                //.expense(getExpenseItemsForClaim())
                                 .approved(rs.getBoolean("approved"))
                                 .paid(rs.getBoolean("paid"))
                                 .build());

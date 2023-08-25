@@ -11,7 +11,10 @@ import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 /**
- *
+ * !!! TODO Add an extra option to the expenses management option to export the 
+ * data to a file - output the same data as you get when you access the option 
+ * to print the employees
+ * 
  * @author jason
  */
 public class ExpenseManagementSystem {
@@ -113,8 +116,19 @@ public class ExpenseManagementSystem {
                 
                 case "p" ->
                     employees.viewEmployees();
-                case "r1" ->
+                case "r1" -> {
                     analyse.printOutstandingExpenseClaims();
+                    
+                    System.out.println("\nExport to file (y/n)?");
+                    String response = scanner.nextLine().toLowerCase();
+                    
+                    if (response.equals("y")) {
+                        
+                        System.out.println("Save the report to");
+                        String saveAt = scanner.nextLine();
+                        analyse.writeOutstandingExpenseClaims(saveAt);
+                    }
+                }
                 case "r2" -> {
                     System.out.println("Enter date from (yyyy-mm-dd)");
                     String from = scanner.nextLine();
@@ -125,14 +139,34 @@ public class ExpenseManagementSystem {
                     LocalDate toLD = LocalDate.parse(to, DateTimeFormatter.ISO_DATE);
                     
                     analyse.printPaidExpenseClaims(fromLD, toLD);
+                    
+                    System.out.println("\nExport to file (y/n)?");
+                    String response = scanner.nextLine().toLowerCase();
+                    
+                    if (response.equals("y")) {
+                        
+                        System.out.println("Save the report to");
+                        String saveAt = scanner.nextLine();
+                        analyse.writePaidExpenseClaims(saveAt, toLD, toLD);
+                    }
                 }
                 case "r3" -> {
                     
-                    System.out.println("Ente amount");
+                    System.out.println("Enter amount");
                     double filter = scanner.nextDouble();
                     scanner.nextLine();
                     
                     analyse.printExpenseClaims(filter);
+                    
+                    System.out.println("\nExport to file (y/n)?");
+                    String response = scanner.nextLine().toLowerCase();
+                    
+                    if (response.equals("y")) {
+                        
+                        System.out.println("Save the report to");
+                        String saveAt = scanner.nextLine();
+                        analyse.writeExpenseClaims(saveAt, filter);
+                    }
                 }
                 
                 default ->

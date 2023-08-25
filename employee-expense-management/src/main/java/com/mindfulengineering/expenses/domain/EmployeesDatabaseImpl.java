@@ -98,11 +98,13 @@ public class EmployeesDatabaseImpl implements Employees {
 
         try (Connection cn = DriverManager.getConnection(h2db, "sa", "")) {
             Statement st = cn.createStatement();
-            ResultSet rs = st.executeQuery("SELECT * FROM employees WHERE surname like '%" + surname + "%'");
+            ResultSet rs = st.executeQuery("SELECT * FROM employees WHERE surname like '%" 
+                    + surname + "%'");
 
             if (rs.next()) {
-                return new Employee(rs.getInt("id"), rs.getString("title"), rs.getString("firstName"),
-                        rs.getString("surname"), rs.getString("jobTitle"),
+                return new Employee(rs.getInt("id"), rs.getString("title"), 
+                        rs.getString("firstName"), rs.getString("surname"), 
+                        rs.getString("jobTitle"),
                         Department.valueOf(rs.getString("department").toUpperCase()));
             }
 
@@ -155,6 +157,8 @@ public class EmployeesDatabaseImpl implements Employees {
 
     }
     
+    
+    // !!! TODO Complete the implementation
     private List<ExpenseItem> getExpenseItemsForClaim(int claimId) {
         List<ExpenseItem> items = new LinkedList<>();
         
